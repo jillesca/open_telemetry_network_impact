@@ -6,6 +6,8 @@ source .env
 
 docker build \
     --build-arg NSO_IMG_NAME=$NSO_IMG_NAME \
+    --build-arg NSO_NED_IOS_TAR=$NSO_NED_IOS_TAR \
+    --build-arg NSO_NED_IOS_BIN=$NSO_NED_IOS_BIN \
     --file $NSO_DOCKERFILE \
     --tag $NSO_TAG \
     .

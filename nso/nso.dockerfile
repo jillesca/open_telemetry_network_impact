@@ -1,3 +1,19 @@
+ARG NSO_IMG_NAME
 FROM ${NSO_IMG_NAME}
 
-COPY ncs-6.1.2-cisco-ios-6.95.signed.bin .
+ARG NSO_NED_IOS_BIN
+ARG NSO_NED_IOS_TAR
+
+ENV NSO_NED_IOS_BIN=${NSO_NED_IOS_BIN}
+ENV NSO_NED_IOS_TAR=${NSO_NED_IOS_TAR}
+
+COPY $NSO_NED_IOS_BIN /tmp
+
+RUN echo $NSO_NED_IOS_BIN \
+    && cd /tmp \
+    && chmod a+x $NSO_NED_IOS_BIN \
+    && ./$NSO_NED_IOS_BIN \
+    && mv $NSO_NED_IOS_TAR $NCS_RUN_DIR/packages \
+    && rm -rf /tmp/*
+
+WORKDIR /home
