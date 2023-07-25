@@ -1,0 +1,3 @@
+---
+plugin: cisco.cml.cml_inventory
+group_tags: clients, network

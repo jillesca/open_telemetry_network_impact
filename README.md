@@ -6,7 +6,7 @@ CML or [Cisco Modelling Labs.](https://developer.cisco.com/docs/sandbox/#!networ
 
 ```bash
 cd ansible
-ansible-playbook cisco.cml.clean -e cml_lab="'Multi Platform Network'"
+ansible-playbook cisco.cml.clean -e cml_lab="'Small NXOS/IOSXE Network'"
 
 ```
 
@@ -18,5 +18,5 @@ chmod a+x build_and_run.sh
 ```
 
 ```bash
-ansible-playbook cisco.cml.build -e startup='host'
+ansible-playbook cisco.cml.build -e startup='host' -e wait='yes'
 ```
