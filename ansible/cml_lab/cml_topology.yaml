@@ -9,31 +9,31 @@ links:
     n2: n1
     i1: i0
     i2: i0
-    label: ext-conn-0-port<->unmanaged-switch-0-port0
+    label: bridge-to-sandbox-port<->sandbox-backend-port0
   - id: l1
     n1: n1
     n2: n4
     i1: i1
     i2: i1
-    label: unmanaged-switch-0-port1<->cat8000v-0-GigabitEthernet1
+    label: sandbox-backend-port1<->cat8000v-0-GigabitEthernet1
   - id: l2
     n1: n1
     n2: n5
     i1: i2
     i2: i1
-    label: unmanaged-switch-0-port2<->cat8000v-1-GigabitEthernet1
+    label: sandbox-backend-port2<->cat8000v-1-GigabitEthernet1
   - id: l3
     n1: n1
     n2: n2
     i1: i3
     i2: i0
-    label: unmanaged-switch-0-port3<->ubuntu-0-ens2
+    label: sandbox-backend-port3<->server-ens2
   - id: l4
     n1: n1
     n2: n3
     i1: i4
     i2: i0
-    label: unmanaged-switch-0-port4<->ubuntu-1-ens2
+    label: sandbox-backend-port4<->client-ens2
   - id: l5
     n1: n4
     n2: n5
@@ -45,13 +45,13 @@ links:
     n2: n4
     i1: i1
     i2: i3
-    label: ubuntu-0-ens3<->cat8000v-0-GigabitEthernet3
+    label: server-ens3<->cat8000v-0-GigabitEthernet3
   - id: l7
     n1: n5
     n2: n3
     i1: i3
     i2: i1
-    label: cat8000v-1-GigabitEthernet3<->ubuntu-1-ens3
+    label: cat8000v-1-GigabitEthernet3<->client-ens3
   - id: l8
     n1: n4
     n2: n5
@@ -79,7 +79,7 @@ nodes:
         slot: 0
         type: physical
   - boot_disk_size: null
-    configuration: ums-9d1f8d3d-6c
+    configuration: ums-cdc3a64f-1d
     cpu_limit: null
     cpus: null
     data_volume: null
@@ -152,8 +152,6 @@ nodes:
                   routes:
                     - to: 172.16.0.0/16
                       via: 172.16.101.1
-                    - to: 172.31.0.0/16
-                      via: 172.16.101.1
                   set-name: ens3
                 ens2:
                   match:
@@ -215,8 +213,6 @@ nodes:
                     - 172.16.102.11/24
                   routes:
                     - to: 172.16.0.0/16
-                      via: 172.16.102.1
-                    - to: 172.31.0.0/16
                       via: 172.16.102.1
                   set-name: ens3
                 ens2:
