@@ -9,5 +9,5 @@ ENV DOCKER_INFLUXDB_INIT_ORG=telemtry-org
 ENV DOCKER_INFLUXDB_INIT_BUCKET=telemetry
 
 # docker build --file influxdb.dockerfile --tag influxdb:test .
-# docker run -itd -p 8086:8086 --name influxdb influxdb:test 
+# docker run -itd -p 8086:8086 --name influxdb --add-host host.docker.internal:host-gateway influxdb:test 
 # docker exec -it influxdb bash
