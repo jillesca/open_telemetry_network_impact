@@ -27,3 +27,10 @@ ansible-playbook cisco.cml.build -e startup='host' -e wait='yes'
 chmod a+x build_nso.sh
 ./build_nso.sh
 ```
+
+# verify telemetry
+
+```
+show telemetry ietf subscription 1010 receiver
+show telemetry ietf subscription 1010 detail
+```
