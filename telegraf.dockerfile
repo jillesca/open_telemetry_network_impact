@@ -8,3 +8,4 @@ RUN ls /etc/telegraf \
 # docker build --file telegraf.dockerfile --tag telegraf:test .
 # docker run -itd --name test telegraf:test 
 # docker exec -it test bash
+# tail -F /tmp/telegraf-grpc.log

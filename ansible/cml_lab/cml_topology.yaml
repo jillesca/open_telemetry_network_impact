@@ -254,14 +254,6 @@ nodes:
       !
       hostname cat8000v-0
       !
-      vrf definition Mgmt-intf
-       !
-       address-family ipv4
-       exit-address-family
-       !
-       address-family ipv6
-       exit-address-family
-      !
       no logging console
       enable password cisco
       !
@@ -270,7 +262,6 @@ nodes:
       username cisco privilege 15 secret 9 $9$iVecEqVTUJzHUk$EO2BfGoo4I8.wW.QanPw2rSxwy9NJt6kc3xFNEFLYSA
       !
       interface GigabitEthernet1
-       vrf forwarding Mgmt-intf
        description to port1.sandbox-backend
        ip address 10.10.20.175 255.255.255.0
        negotiation auto
@@ -279,7 +270,7 @@ nodes:
       no ip http server
       ip http secure-server
       !
-      ip route vrf Mgmt-intf 0.0.0.0 0.0.0.0 10.10.20.254
+      ip route 0.0.0.0 0.0.0.0 10.10.20.254
       !
       line con 0
        exec-timeout 0 0
@@ -342,14 +333,6 @@ nodes:
       !
       hostname cat8000v-1
       !
-      vrf definition Mgmt-intf
-       !
-       address-family ipv4
-       exit-address-family
-       !
-       address-family ipv6
-       exit-address-family
-      !
       no logging console
       enable password cisco
       !
@@ -358,7 +341,6 @@ nodes:
       username cisco privilege 15 secret 9 $9$iVecEqVTUJzHUk$EO2BfGoo4I8.wW.QanPw2rSxwy9NJt6kc3xFNEFLYSA
       !
       interface GigabitEthernet1
-       vrf forwarding Mgmt-intf
        description to port2.sandbox-backend
        ip address 10.10.20.176 255.255.255.0
        negotiation auto
@@ -367,7 +349,7 @@ nodes:
       no ip http server
       ip http secure-server
       !
-      ip route vrf Mgmt-intf 0.0.0.0 0.0.0.0 10.10.20.254
+      ip route 0.0.0.0 0.0.0.0 10.10.20.254
       !
       line con 0
        exec-timeout 0 0
