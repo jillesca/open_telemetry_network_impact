@@ -1,0 +1,14 @@
+apiVersion: 1
+
+datasources:
+  - name: InfluxDB_v2_Flux
+    type: influxdb
+    access: proxy
+    url: http://host.docker.internal:8086
+    jsonData:
+      version: Flux
+      organization: telemtry-org
+      defaultBucket: mdt_grpc
+      tlsSkipVerify: true
+    secureJsonData:
+      token: oZSZ0CnbZcwKouMQ3JfR7n7K0vAuMNFaa0rymxpQ6jGQU8ZqHjiHb9Vu5OVf23CeLR7Tytuzg8doVQTo_n_3Vg==
