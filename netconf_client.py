@@ -27,34 +27,35 @@ def dict_to_telegraf_json(rpc_reply_dict: Dict) -> str:
 
     return json.dumps(intf_stats_array)  # return JSON formatted data
 
+def connect_netconf_to(device: Dict) -> None:
+    int_netconf_filter = read_file(NETCONF_INTERFACE_STATS)
+    print(device)
+
+    with manager.connect(
+            host = device["host"],
+            port = device["port"],
+            username = device["username"],
+            password = device["password"],
+            hostkey_verify= device["hostkey_verify"],
+            device_params = device["device_params"]
+        ) as m:
+            # https://github.com/YangModels/yang/blob/master/vendor/cisco/xe/16111/ietf-interfaces.yang
+            netconf_filter = int_netconf_filter
+
+            netconf_rpc_reply = m.get(filter = netconf_filter).xml
+
+            netconf_reply_dict = xmltodict.parse(netconf_rpc_reply)
+            
+            telegraf_json_input = dict_to_telegraf_json(netconf_reply_dict)
+
+            # telegraf needs data in a certain data format.
+            # I have chosen JSON data that will be picked up by the exec plugin
+            print(telegraf_json_input)
 
 def main():
     devices_settings = parse_from_json(read_file(DEVICES_SETTINGS)) 
-    print(devices_settings)
-
-    int_netconf_filter = read_file(NETCONF_INTERFACE_STATS)
-    print(int_netconf_filter)
-    with manager.connect(
-        host = "10.10.20.175",  # sandbox ios-xe always on
-        port = 830,
-        username = "cisco",
-        password = "cisco",  # enter device password
-        hostkey_verify=False,
-        device_params = {'name': 'iosxe'}
-    ) as m:
-        # https://github.com/YangModels/yang/blob/master/vendor/cisco/xe/16111/ietf-interfaces.yang
-        netconf_filter = int_netconf_filter
-
-        netconf_rpc_reply = m.get(filter = netconf_filter).xml
-
-        netconf_reply_dict = xmltodict.parse(netconf_rpc_reply)
-        
-        telegraf_json_input = dict_to_telegraf_json(netconf_reply_dict)
-
-        # telegraf needs data in a certain data format.
-        # I have chosen JSON data that will be picked up by the exec plugin
-        print(telegraf_json_input)
-
+    for device in devices_settings:
+        connect_netconf_to(device)
 
 if __name__ == "__main__":
     main()
