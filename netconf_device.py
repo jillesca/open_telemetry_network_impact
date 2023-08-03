@@ -1,6 +1,5 @@
 from typing import Dict
 from dataclasses import dataclass
-from netconf_client_utils import parse_from_json
 
 @dataclass
 class netconf_device:

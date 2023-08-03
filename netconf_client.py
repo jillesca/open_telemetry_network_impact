@@ -1,8 +1,7 @@
 from typing import Dict
 from ncclient import manager
-import xmltodict
 import json
-from netconf_client_utils import read_file, parse_from_json
+from netconf_client_utils import read_file, parse_from_json, parse_xml_to_dict
 from netconf_device import netconf_device
 
 DEVICES_SETTINGS = "netconf_devices_settings.json"
@@ -28,9 +27,10 @@ def dict_to_telegraf_json(rpc_reply_dict: Dict) -> str:
 
     return json.dumps(intf_stats_array)  # return JSON formatted data
 
-def connect_netconf_to(device: Dict) -> None:
-    int_netconf_filter = read_file(NETCONF_INTERFACE_STATS)
+def netconf_call(session: manager, call: str) -> str:
+    return parse_xml_to_dict(session.get(call))
 
+def connect_netconf_to(device: Dict) -> None:
     with manager.connect(
             host = device.host,
             port = device.port,
@@ -38,15 +38,12 @@ def connect_netconf_to(device: Dict) -> None:
             password = device.password,
             hostkey_verify= device.hostkey_verify,
             device_params = device.device_params
-        ) as m:
+        ) as session:
             # https://github.com/YangModels/yang/blob/master/vendor/cisco/xe/16111/ietf-interfaces.yang
-            netconf_filter = int_netconf_filter
-
-            netconf_rpc_reply = m.get(filter = netconf_filter).xml
-
-            netconf_reply_dict = xmltodict.parse(netconf_rpc_reply)
+            netconf_reply = netconf_call(session, 
+                                            read_file(NETCONF_INTERFACE_STATS))
             
-            telegraf_json_input = dict_to_telegraf_json(netconf_reply_dict)
+            telegraf_json_input = dict_to_telegraf_json(netconf_reply)
 
             # telegraf needs data in a certain data format.
             # I have chosen JSON data that will be picked up by the exec plugin
