@@ -11,3 +11,6 @@ def parse_from_json(file: str) -> Dict:
 
 def parse_xml_to_dict(xml: str) -> Dict:
     return xmltodict.parse(xml.xml)
+
+def parse_to_json(string: str) -> str:
+    return json.dumps(string) 

@@ -2,7 +2,7 @@ from netconf_client_utils import read_file, parse_from_json
 from netconf_device import netconf_device
 from netconf_session import connect_netconf_to
 
-DEVICES_SETTINGS = "netconf_devices_settings.json"
+DEVICES_SETTINGS = "/opt/netconf_client/netconf_devices_settings.json"
 
 def main():
     devices_settings = parse_from_json(read_file(DEVICES_SETTINGS)) 
