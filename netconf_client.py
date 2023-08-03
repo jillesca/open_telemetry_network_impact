@@ -2,6 +2,11 @@ from typing import Dict
 from ncclient import manager
 import xmltodict
 import json
+from netconf_client_utils import read_file, parse_from_json
+
+DEVICES_SETTINGS = "netconf_devices_settings.json"
+NETCONF_INTERFACE_STATS = "netconf_interface_stats.xml"
+
 
 def dict_to_telegraf_json(rpc_reply_dict: Dict) -> str:
 
@@ -24,6 +29,11 @@ def dict_to_telegraf_json(rpc_reply_dict: Dict) -> str:
 
 
 def main():
+    devices_settings = parse_from_json(read_file(DEVICES_SETTINGS)) 
+    print(devices_settings)
+
+    int_netconf_filter = read_file(NETCONF_INTERFACE_STATS)
+    print(int_netconf_filter)
     with manager.connect(
         host = "10.10.20.175",  # sandbox ios-xe always on
         port = 830,
@@ -33,27 +43,9 @@ def main():
         device_params = {'name': 'iosxe'}
     ) as m:
         # https://github.com/YangModels/yang/blob/master/vendor/cisco/xe/16111/ietf-interfaces.yang
-        netconf_filter = """
-        <filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
-                <interfaces-state xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
-                        <interface>
-                                <name/>
-                                <type/>
-                                <oper-status/>
-                                <statistics>
-                                        <in-octets/>
-                                        <in-errors/>
-                                        <out-octets/>
-                                        <out-errors/>
-                                </statistics>
-                        </interface>
-                </interfaces-state>
-        </filter>
-        """
+        netconf_filter = int_netconf_filter
 
-        netconf_rpc_reply = m.get(
-            filter = netconf_filter
-        ).xml
+        netconf_rpc_reply = m.get(filter = netconf_filter).xml
 
         netconf_reply_dict = xmltodict.parse(netconf_rpc_reply)
         

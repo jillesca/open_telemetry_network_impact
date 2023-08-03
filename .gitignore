@@ -1,2 +1,3 @@
 .env
 ncs-*.signed.bin
+**/__pycache__/
