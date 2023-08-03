@@ -104,7 +104,7 @@
                         "type": "influxdb",
                         "uid": "P5697886F9CA74929"
                     },
-                    "query": "from(bucket: \"mdt_grpc\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"Cisco-IOS-XE-process-cpu-oper:cpu-usage/cpu-utilization\")\n  |> filter(fn: (r) => r[\"_field\"] == \"five_seconds\")\n  |> filter(fn: (r) => r[\"host\"] == \"403fa3173a14\")\n  |> filter(fn: (r) => r[\"path\"] == \"Cisco-IOS-XE-process-cpu-oper:cpu-usage/cpu-utilization\")\n  |> filter(fn: (r) => r[\"source\"] == \"cat8000v-0\" or r[\"source\"] == \"cat8000v-1\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+                    "query": "from(bucket: \"mdt_grpc\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"Cisco-IOS-XE-process-cpu-oper:cpu-usage/cpu-utilization\")\n  |> filter(fn: (r) => r[\"_field\"] == \"five_seconds\")\n  |> filter(fn: (r) => r[\"path\"] == \"Cisco-IOS-XE-process-cpu-oper:cpu-usage/cpu-utilization\")\n  |> filter(fn: (r) => r[\"source\"] == \"cat8000v-0\" or r[\"source\"] == \"cat8000v-1\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
                     "refId": "A"
                 }
             ],
@@ -127,6 +127,6 @@
     "timezone": "",
     "title": "test",
     "uid": "d44174ca-56c5-41dc-9451-2c858cc0566b",
-    "version": 2,
+    "version": 1,
     "weekStart": ""
 }
