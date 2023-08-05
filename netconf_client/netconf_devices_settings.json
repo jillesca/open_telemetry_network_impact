@@ -9,5 +9,16 @@
             "name": "iosxe"
         },
         "hostname": "sandbox-iosxe-latest-1.cisco.com"
+    },
+    {
+        "host": "sandbox-iosxe-latest-1.cisco.com",
+        "port": 830,
+        "username": "admin",
+        "password": "C1sco12345",
+        "hostkey_verify": "False",
+        "device_params": {
+            "name": "iosxe"
+        },
+        "hostname": "sandbox-iosxe-latest-1.cisco.com"
     }
 ]
