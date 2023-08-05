@@ -1,6 +1,6 @@
 # Lab used
 
-[NSO 6 Reservable Sandbox](https://developer.cisco.com/site/sandbox/) Reserve a lab to get started.
+[NSO 6 Reservable Sandbox](https://developer.cisco.com/site/sandbox/) Reserve a lab to get started. Clone this repo to the devbox VM.
 
 This lab doesn't use the default topology from the NSO sandbox.
 
@@ -39,7 +39,7 @@ show telemetry ietf subscription 1010 detail
 - Grafana - <http://10.10.20.50:3000>
 - Influxdb - <http://10.10.20.50:8086>
 
-# Bonus: Create a lab using ansible
+# Bonus: Create the lab using Ansible
 
 Start ansible container
 
