@@ -23,10 +23,10 @@ def parse_result_to_dict(device_data: dict) -> str:
 
 
 def main():
-    devices_settings = parse_from_json(read_file(DEVICES_SETTINGS))
-    for device_setting in devices_settings:
+    devices = parse_from_json(read_file(DEVICES_SETTINGS))
+    for device in devices:
         device_data_xml = connect_netconf_to(
-            netconf_device(**device_setting), NETCONF_INTERFACE_STATS
+            netconf_device(**device), NETCONF_INTERFACE_STATS
         )
         device_data_dict = parse_xml_to_dict(device_data_xml)
         device_data_parsed = parse_result_to_dict(device_data_dict)
