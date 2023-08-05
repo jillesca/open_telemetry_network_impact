@@ -4,11 +4,15 @@
 
 This lab doesn't use the default topology from the NSO sandbox.
 
-Go to CML `10.10.20.161` (developer/C1sco12345) **stop** and **wipe** the default topology to avoid IP conflicts.
+Go to CML <https://10.10.20.161> (developer/C1sco12345) **stop** and **wipe** the default topology to avoid IP conflicts.
 
-Then load the [cml topology](https://github.com/jillesca/open_telemetry_network/blob/main/ansible/cml_lab/topology.yaml) prepared for this lab.
+Then load the [cml topology](ansible/cml_lab/topology.yaml) prepared for this lab.
 
 **hint** you can load the topology using ansible, see the bonus part at the end of the readme.
+
+# Setup NSO
+
+[See NSO Setup](nso/README.md)
 
 # Start containers on Devbox VM
 
@@ -22,12 +26,18 @@ chmod +x build_run_telegraf.sh
 ./build_run_telegraf.sh
 ```
 
-# verify telemetry on IOS-XE
+# Verify telemetry on IOS-XE
 
 ```
 show telemetry ietf subscription 1010 receiver
 show telemetry ietf subscription 1010 detail
 ```
+
+# Verify telemetry on Telegraf, Influxdb, Grafana
+
+- telegraf - [tail -F /tmp/telegraf-grpc.log](telegraf/dockerfile#30)
+- Grafana - <http://10.10.20.50:3000>
+- Influxdb - <http://10.10.20.50:8086>
 
 # Bonus: Create a lab using ansible
 
