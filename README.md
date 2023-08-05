@@ -1,6 +1,6 @@
 # Lab used
 
-[NSO 6 Reservable Sandbox](https://developer.cisco.com/site/sandbox/) Reserve a lab to get started. Clone this repo to the devbox VM.
+Go to [NSO 6 Reservable Sandbox](https://developer.cisco.com/site/sandbox/) and reserve a lab. **Clone this repo to the devbox VM.**
 
 This lab doesn't use the default topology from the NSO sandbox.
 
