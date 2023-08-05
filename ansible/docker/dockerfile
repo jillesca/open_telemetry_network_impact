@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 FROM python:alpine3.16 AS base
-COPY ./docker/requirements.txt .
+COPY ./ansible/docker/requirements.txt .
 RUN apk add \
     gcc \
     musl-dev \
@@ -10,7 +10,6 @@ RUN apk add \
     && pip install --upgrade pip \
     && pip3 install -r requirements.txt
 WORKDIR /home
-
 
 
 FROM base as cml
@@ -26,6 +25,10 @@ ENV CML_HOST=${CML_HOST}
 ENV CML_USERNAME=${CML_USERNAME}
 ENV CML_PASSWORD=${CML_PASSWORD}
 ENV CML_VERIFY_CERT=${CML_VERIFY_CERT}
+
+COPY ansible/cml_lab/* /home/cml_lab/
+COPY ansible/inventory/* /home/inventory/
+COPY ansible/ansible.cfg /home/ansible.cfg
 
 RUN pip install virl2-client==2.5.0 \
     && ansible-galaxy collection install cisco.cml

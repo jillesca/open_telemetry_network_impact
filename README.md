@@ -1,8 +1,42 @@
 # Lab used
 
-CML or [Cisco Modelling Labs.](https://developer.cisco.com/docs/sandbox/#!networking/networking-overview) Reserve a lab to get started.
+[NSO 6 Reservable Sandbox](https://developer.cisco.com/site/sandbox/) Reserve a lab to get started.
 
-# Delete default lab
+# Start containers on Devbox VM
+
+```bash
+chmod +x build_run_grafana.sh
+chmod +x build_run_influxdb.sh
+chmod +x build_run_telegraf.sh
+
+./build_run_grafana.sh
+./build_run_influxdb.sh
+./build_run_telegraf.sh
+```
+
+# verify telemetry on IOS-XE
+
+```
+show telemetry ietf subscription 1010 receiver
+show telemetry ietf subscription 1010 detail
+```
+
+# Bonus: Create a lab using ansible
+
+Start ansible container
+
+```bash
+chmod +x build_run_cml.sh
+./build_run_cml.sh
+```
+
+Enter the container first
+
+```bash
+docker exec -it cml /bin/sh
+```
+
+## Delete default lab
 
 ```bash
 cd ansible
@@ -10,27 +44,8 @@ ansible-playbook cisco.cml.clean -e cml_lab="'Small NXOS/IOSXE Network'"
 
 ```
 
-# Create a lab
-
-```build & start the container
-chmod a+x build_and_run_cml.sh
-./build_and_run_cml.sh
-```
+## Create a lab
 
 ```bash
 ansible-playbook cisco.cml.build -e startup='host' -e wait='yes'
-```
-
-# Build NSO container
-
-```build & start the container
-chmod a+x build_nso.sh
-./build_nso.sh
-```
-
-# verify telemetry
-
-```
-show telemetry ietf subscription 1010 receiver
-show telemetry ietf subscription 1010 detail
 ```
