@@ -2,6 +2,12 @@
 
 [NSO 6 Reservable Sandbox](https://developer.cisco.com/site/sandbox/) Reserve a lab to get started.
 
+This lab doesn't use the default topology from the NSO sandbox.
+
+Go to CML `10.10.20.161` (developer/C1sco12345) **stop** and **wipe** the default topology to avoid IP conflicts.
+
+Then load the [cml topology](https://github.com/jillesca/open_telemetry_network/blob/main/ansible/cml_lab/topology.yaml) prepared for this lab.
+
 # Start containers on Devbox VM
 
 ```bash
