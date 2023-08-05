@@ -8,6 +8,8 @@ Go to CML `10.10.20.161` (developer/C1sco12345) **stop** and **wipe** the defaul
 
 Then load the [cml topology](https://github.com/jillesca/open_telemetry_network/blob/main/ansible/cml_lab/topology.yaml) prepared for this lab.
 
+**hint** you can load the topology using ansible, see the bonus part at the end of the readme.
+
 # Start containers on Devbox VM
 
 ```bash
