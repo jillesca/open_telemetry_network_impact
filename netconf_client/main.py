@@ -9,7 +9,7 @@ from netconf_session import connect_netconf_to
 from intf_stats_xe_to_json import intf_stats_xe_to_json
 
 DEVICES_SETTINGS = "./netconf_devices_settings.json"
-NETCONF_INTERFACE_STATS = "netconf_interface_stats.xml"
+NETCONF_INTERFACE_STATS = "filters/netconf_interface_stats.xml"
 # NETCONF_INTERFACE_STATS = "/opt/netconf_client/netconf_interface_stats.xml"
 
 
