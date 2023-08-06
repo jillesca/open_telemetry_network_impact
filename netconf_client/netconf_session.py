@@ -2,7 +2,7 @@ from ncclient import manager
 from netconf_client_utils import read_file
 
 
-def connect_netconf_to(device: dict, netconf_payload: str) -> str:
+def connect(device: dict, netconf_payload: str) -> str:
     with manager.connect(
         host=device.host,
         port=device.port,
@@ -11,7 +11,8 @@ def connect_netconf_to(device: dict, netconf_payload: str) -> str:
         hostkey_verify=device.hostkey_verify,
         device_params=device.device_params,
     ) as session:
-        return rpc_get(session, read_file(netconf_payload))
+        # TODO fix filter dir
+        return rpc_get(session, read_file("filters/" + netconf_payload))
 
 
 def rpc_get(session: manager, call: str) -> str:
