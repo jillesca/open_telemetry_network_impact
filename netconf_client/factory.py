@@ -1,9 +1,9 @@
-from netconf_filter import Filter_call
+from netconf_parsers import Parser
 
 
-def get_parser(netconf_filter: str) -> Filter_call:
+def get_parser(netconf_filter: str) -> Parser:
     match netconf_filter:
         case "netconf_interface_stats.xml":
-            from parsers.stats import Interface_stats_iosxe
+            from parsers.interface_stats_iosxe import Interface_stats_iosxe
 
             return Interface_stats_iosxe()

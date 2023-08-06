@@ -1,9 +1,9 @@
-from netconf_filter import Filter_call
+from netconf_parsers import Parser
 
 
-class Interface_stats_iosxe(Filter_call):
-    def parse(self, filter: str):
-        return self.intf_stats_xe_to_json(filter)
+class Interface_stats_iosxe(Parser):
+    def parse(self, data_to_parse: dict):
+        return self.intf_stats_xe_to_json(data_to_parse)
 
     def intf_stats_xe_to_json(self, rpc_reply: dict) -> str:
         stats: list = []

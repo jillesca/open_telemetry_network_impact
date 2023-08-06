@@ -1,8 +1,7 @@
 from abc import ABC, abstractclassmethod
-from netconf_session import connect
 
 
-class Filter_call(ABC):
+class Parser(ABC):
     @abstractclassmethod
-    def parse(self, filter: str) -> str:
+    def parse(self, data_to_parse: str) -> str:
         raise NotImplementedError
