@@ -1,3 +1,4 @@
+import os
 import json
 import xmltodict
 
@@ -17,3 +18,7 @@ def parse_xml_to_dict(xml: str) -> dict:
 
 def parse_to_json(data: str) -> str:
     return json.dumps(data)
+
+
+def get_absolute_path(file) -> str:
+    return os.path.abspath(os.path.dirname(file))

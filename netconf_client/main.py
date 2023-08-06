@@ -10,7 +10,6 @@ from netconf_session import connect
 
 DEVICES_SETTINGS = "./netconf_devices_settings.json"
 NETCONF_FILTER = "netconf_interface_stats.xml"
-# NETCONF_INTERFACE_STATS = "/opt/netconf_client/netconf_interface_stats.xml"
 
 
 def main():

@@ -1,5 +1,7 @@
 from ncclient import manager
-from netconf_client_utils import read_file
+from netconf_client_utils import read_file, get_absolute_path
+
+FILTER_DIR = "filters"
 
 
 def connect(device: dict, netconf_payload: str) -> str:
@@ -11,9 +13,15 @@ def connect(device: dict, netconf_payload: str) -> str:
         hostkey_verify=device.hostkey_verify,
         device_params=device.device_params,
     ) as session:
-        # TODO fix filter dir
-        return rpc_get(session, read_file("filters/" + netconf_payload))
+        return rpc_get(
+            session,
+            read_file(get_path(netconf_payload)),
+        )
 
 
-def rpc_get(session: manager, call: str) -> str:
-    return session.get(call)
+def get_path(payload: str) -> str:
+    return f"{get_absolute_path(__file__)}/{FILTER_DIR}/{payload}"
+
+
+def rpc_get(session: manager, netconf_payload: str) -> str:
+    return session.get(netconf_payload)
