@@ -3,12 +3,13 @@ from netconf_client_utils import (
     parse_from_json,
     parse_to_json,
     parse_xml_to_dict,
+    get_absolute_path,
 )
 from netconf_device import create_device
 from factory import get_parser
 from netconf_session import connect
 
-DEVICES_SETTINGS = "./netconf_devices_settings.json"
+DEVICES_SETTINGS = "netconf_devices_settings.json"
 NETCONF_FILTER = "netconf_interface_stats.xml"
 
 
@@ -22,8 +23,9 @@ def main():
         parse_result_to_json(data_parsed)
 
 
-def load_settings(settings: str):
-    return parse_from_json(read_file(settings))
+def load_settings(file: str):
+    file_path = f"{get_absolute_path(file)}/{file}"
+    return parse_from_json(read_file(file_path))
 
 
 def parse_result_to_json(data: dict) -> None:
