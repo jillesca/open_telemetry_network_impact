@@ -15,6 +15,7 @@ NETCONF_INTERFACE_STATS = "filters/netconf_interface_stats.xml"
 
 def parse_result_to_json(device_data: dict) -> None:
     json_result = parse_to_json(device_data)
+    assert parse_from_json(json_result)
     print(json_result)
 
 
