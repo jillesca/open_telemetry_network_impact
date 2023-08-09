@@ -19,12 +19,15 @@ def main():
     netconf_filter = args.netconf_filter
 
     devices = load_settings(devices_settings)
+    results = []
     for device in devices:
         data_xml = connect(create_device(**device), netconf_filter)
         data_dict = parse_xml_to_dict(data_xml)
         parser = get_parser(netconf_filter)
         data_parsed = parser.parse(data_dict)
-        parse_result_to_json(data_parsed)
+        results += data_parsed
+
+    print(parse_results_to_json(results))
 
 
 def load_settings(file: str):
@@ -32,10 +35,10 @@ def load_settings(file: str):
     return parse_from_json(read_file(file_path))
 
 
-def parse_result_to_json(data: dict) -> None:
-    json_result = parse_to_json(data)
-    assert parse_from_json(json_result)
-    print(json_result)
+def parse_results_to_json(data: any) -> str:
+    result = parse_to_json(data)
+    assert parse_from_json(result)
+    return result
 
 
 if __name__ == "__main__":
