@@ -8,17 +8,21 @@ from netconf_client_utils import (
 from netconf_device import create_device
 from factory import get_parser
 from netconf_session import connect
-
-DEVICES_SETTINGS = "netconf_devices_settings.json"
-NETCONF_FILTER = "netconf_interface_stats.xml"
+from arg_parser import get_arg_parser
 
 
 def main():
-    devices = load_settings(DEVICES_SETTINGS)
+    args_parser = get_arg_parser()
+    args = args_parser.parse_args()
+
+    devices_settings = args.device_settings
+    netconf_filter = args.netconf_filter
+
+    devices = load_settings(devices_settings)
     for device in devices:
-        data_xml = connect(create_device(**device), NETCONF_FILTER)
+        data_xml = connect(create_device(**device), netconf_filter)
         data_dict = parse_xml_to_dict(data_xml)
-        parser = get_parser(NETCONF_FILTER)
+        parser = get_parser(netconf_filter)
         data_parsed = parser.parse(data_dict)
         parse_result_to_json(data_parsed)
 

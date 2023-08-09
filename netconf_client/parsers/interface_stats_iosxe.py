@@ -2,10 +2,10 @@ from netconf_parsers import Parser
 
 
 class Interface_stats_iosxe(Parser):
-    def parse(self, data_to_parse: dict):
+    def parse(self, data_to_parse: dict) -> list[dict]:
         return self.intf_stats_xe_to_json(data_to_parse)
 
-    def intf_stats_xe_to_json(self, rpc_reply: dict) -> str:
+    def intf_stats_xe_to_json(self, rpc_reply: dict) -> list[dict]:
         stats: list = []
         for intf_entry in rpc_reply["rpc-reply"]["data"]["interfaces-state"][
             "interface"

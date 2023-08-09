@@ -11,7 +11,8 @@
       "request": "launch",
       "program": "main.py",
       "console": "integratedTerminal",
-      "justMyCode": true
+      "justMyCode": true,
+      "args": ["--netconf_filter", "netconf_interface_stats.xml"]
     }
   ]
 }
