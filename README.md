@@ -1,4 +1,4 @@
-# Lab used
+# Open Telemetry Network
 
 Go to [NSO 6 Reservable Sandbox](https://developer.cisco.com/site/sandbox/) and reserve a lab. **Clone this repo to the devbox VM.**
 
@@ -67,3 +67,8 @@ ansible-playbook cisco.cml.clean -e cml_lab="'Small NXOS/IOSXE Network'"
 ```bash
 ansible-playbook cisco.cml.build -e startup='host' -e wait='yes'
 ```
+
+# Links that helped to build the lab
+
+- <https://github.com/jeremycohoe/cisco-ios-xe-mdt/tree/master>
+- <https://anirudhkamath.github.io/network-automation-blog/notes/network-telemetry-using-netconf-telegraf-prometheus.html>
