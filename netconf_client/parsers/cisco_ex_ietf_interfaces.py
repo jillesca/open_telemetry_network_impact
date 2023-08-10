@@ -1,8 +1,10 @@
 from netconf_parsers import Parser
+from netconf_devices import netconf_device
 
 
 class Interface_stats_iosxe(Parser):
-    def parse(self, data_to_parse: dict) -> list[dict]:
+    def parse(self, data_to_parse: dict, net_device: netconf_device) -> list[dict]:
+        self.net_device = net_device
         return self.intf_stats_xe_to_json(data_to_parse)
 
     def intf_stats_xe_to_json(self, rpc_reply: dict) -> list[dict]:
@@ -22,4 +24,6 @@ class Interface_stats_iosxe(Parser):
             "out_errors": int(entry["statistics"]["out-errors"]),
             "name": entry["name"].replace(" ", "_"),
             "field": "intf_stats",
+            "device": self.net_device.hostname,
+            "ip": self.net_device.host,
         }

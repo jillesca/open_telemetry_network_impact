@@ -8,6 +8,10 @@ def read_file(file: str) -> str:
     with open(file, "r") as f:
         return f.read()
 
+def write_to_file(file, text) -> str:
+    with open(file, "a") as f:
+        return f.write(text)
+
 
 def find_devices_path(file: str) -> str:
     if find_if_abs_path_was_provided(file):

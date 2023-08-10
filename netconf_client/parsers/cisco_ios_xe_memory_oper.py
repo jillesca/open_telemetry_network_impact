@@ -1,12 +1,13 @@
 from netconf_parsers import Parser
-
+from netconf_devices import netconf_device
 
 def calc_percent(entry: dict) -> int:
     return (int(entry["used-memory"]) / int(entry["total-memory"])) * 100
 
 
 class Cisco_ios_xe_memory_oper(Parser):
-    def parse(self, data_to_parse: dict) -> list[dict]:
+    def parse(self, data_to_parse: dict, net_device: netconf_device) -> list[dict]:
+        self.net_device = net_device
         return self.memory_oper_to_json(data_to_parse)
 
     def memory_oper_to_json(self, rpc_reply: dict) -> str:
@@ -24,4 +25,6 @@ class Cisco_ios_xe_memory_oper(Parser):
             "name": entry["name"],
             "percent_used": calc_percent(entry),
             "field": "memory_pool",
+            "device": self.net_device.hostname,
+            "ip": self.net_device.host,
         }

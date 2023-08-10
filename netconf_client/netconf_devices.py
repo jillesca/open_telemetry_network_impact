@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class create_device:
+class netconf_device:
     host: str
     port: str
     username: str
