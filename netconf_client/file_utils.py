@@ -35,5 +35,9 @@ def find_filter_path(file: str) -> str:
         return file
     return use_default_working_dir(file)
 
-def use_default_working_dir(file) -> str: 
+def use_default_working_dir(file: str) -> str: 
     return f'{real_path(abs_path(__file__))}/{DEFAULT_FILTER_DIR}/{file}'
+
+
+def remove_path(file: str) -> str:
+    return os.path.basename(file)

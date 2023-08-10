@@ -2,6 +2,7 @@ from file_utils import (
     read_file,
     get_file,
     find_filter_path,
+    remove_path,
 )
 from text_utils import (
     parse_from_json,
@@ -30,7 +31,7 @@ def main():
     for device in devices:
         data_xml = connect(create_device(**device), netconf_filter)
         data_dict = parse_xml_to_dict(data_xml)
-        parser = get_parser(netconf_filter_id)
+        parser = get_parser(remove_path(netconf_filter_id))
         data_parsed = parser.parse(data_dict)
         results += data_parsed
 
