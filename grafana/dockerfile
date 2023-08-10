@@ -2,6 +2,10 @@ FROM grafana/grafana-oss:10.0.3
 
 EXPOSE 3000
 
+ARG GRAFANA_TOKEN
+
+ENV GRAFANA_TOKEN=${GRAFANA_TOKEN}
+
 COPY grafana/grafana.ini /etc/grafana/grafana.ini
 COPY grafana/datasources.yaml /etc/grafana/provisioning/datasources/datasources.yaml
 COPY grafana/dashboard.yaml /etc/grafana/provisioning/dashboards/dashboard.yaml

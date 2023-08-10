@@ -4,7 +4,9 @@ set -eu # Abort the script if a command returns with a non-zero exit code or if
 
 source .env.local
 
-docker build --file grafana/dockerfile --tag grafana:$GRAFANA_TAG .
+docker build --file grafana/dockerfile \
+        --build-arg GRAFANA_TOKEN=$GRAFANA_TOKEN \
+        --tag grafana:$GRAFANA_TAG .
 
 docker run -itd -p 3000:3000 --name grafana --add-host host.docker.internal:host-gateway grafana:$GRAFANA_TAG 
 
