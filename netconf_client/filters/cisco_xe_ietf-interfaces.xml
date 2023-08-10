@@ -1,0 +1,15 @@
+<filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <interfaces-state xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+        <interface>
+            <name />
+            <type />
+            <oper-status />
+            <statistics>
+                <in-octets />
+                <in-errors />
+                <out-octets />
+                <out-errors />
+            </statistics>
+        </interface>
+    </interfaces-state>
+</filter>

@@ -7,9 +7,9 @@ class Interface_stats_iosxe(Parser):
 
     def intf_stats_xe_to_json(self, rpc_reply: dict) -> list[dict]:
         stats: list = []
-        for intf_entry in rpc_reply["rpc-reply"]["data"]["interfaces-state"][
-            "interface"
-        ]:
+        xpath: dict = rpc_reply["rpc-reply"]["data"]["interfaces-state"]["interface"]
+
+        for intf_entry in xpath:
             stats.append(self.sort_stats(intf_entry))
         return stats
 
