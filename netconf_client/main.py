@@ -1,6 +1,6 @@
 from file_utils import (
     read_file,
-    get_file,
+    find_devices_path,
     find_filter_path,
     remove_path,
 )
@@ -8,13 +8,11 @@ from text_utils import (
     parse_from_json,
     parse_to_json,
     parse_xml_to_dict,
-
 )
 from netconf_device import create_device
 from factory import get_parser
 from netconf_session import connect
 from arg_parser import get_arg_parser
-
 
 
 def main():
@@ -24,7 +22,7 @@ def main():
     devices_settings = args.device_settings
     netconf_filter_id = args.netconf_filter
 
-    netconf_filter = find_filter_path(netconf_filter_id) 
+    netconf_filter = find_filter_path(netconf_filter_id)
     devices = load_settings(devices_settings)
 
     results = []
@@ -39,7 +37,7 @@ def main():
 
 
 def load_settings(file: str):
-    file_path = get_file(file)
+    file_path = find_devices_path(file)
     return parse_from_json(read_file(file_path))
 
 
