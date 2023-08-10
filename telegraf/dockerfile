@@ -19,9 +19,9 @@ ENV TELEGRAF_TOKEN=${TELEGRAF_TOKEN}
 COPY telegraf/telegraf.conf /etc/telegraf/telegraf.conf
 COPY telegraf/netconf.conf /etc/telegraf/telegraf.d/netconf.conf
 COPY telegraf/grpc.conf /etc/telegraf/telegraf.d/grpc.conf
-COPY netconf_client/* /opt/netconf_client/
+# COPY netconf_client/* /opt/netconf_client/
 
-RUN chmod +x /opt/netconf_client/*.py
+# RUN chmod +x /opt/netconf_client/*.py
 
 # Run from root dir
 # docker build --target telegraf --file telegraf.dockerfile --tag telegraf:test .

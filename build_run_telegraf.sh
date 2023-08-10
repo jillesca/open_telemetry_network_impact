@@ -12,7 +12,9 @@ docker build \
         --file telegraf/dockerfile \
         --tag telegraf:$TELEGRAF_TAG .
 
-docker run -itd -p 57500:57500 --name telegraf --add-host host.docker.internal:host-gateway telegraf:$TELEGRAF_TAG
+docker run -itd -p 57500:57500 --name telegraf \
+        -v ${PWD}/netconf_client:/opt/netconf_client/ \
+        --add-host host.docker.internal:host-gateway telegraf:$TELEGRAF_TAG
 
 echo "\n################################"
 echo "To access the container use:"

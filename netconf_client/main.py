@@ -1,9 +1,13 @@
-from netconf_client_utils import (
+from file_utils import (
     read_file,
+    get_file,
+    find_filter_path,
+)
+from text_utils import (
     parse_from_json,
     parse_to_json,
     parse_xml_to_dict,
-    get_absolute_path,
+
 )
 from netconf_device import create_device
 from factory import get_parser
@@ -11,19 +15,22 @@ from netconf_session import connect
 from arg_parser import get_arg_parser
 
 
+
 def main():
     args_parser = get_arg_parser()
     args = args_parser.parse_args()
 
     devices_settings = args.device_settings
-    netconf_filter = args.netconf_filter
+    netconf_filter_id = args.netconf_filter
 
+    netconf_filter = find_filter_path(netconf_filter_id) 
     devices = load_settings(devices_settings)
+
     results = []
     for device in devices:
         data_xml = connect(create_device(**device), netconf_filter)
         data_dict = parse_xml_to_dict(data_xml)
-        parser = get_parser(netconf_filter)
+        parser = get_parser(netconf_filter_id)
         data_parsed = parser.parse(data_dict)
         results += data_parsed
 
@@ -31,7 +38,7 @@ def main():
 
 
 def load_settings(file: str):
-    file_path = f"{get_absolute_path(file)}/{file}"
+    file_path = get_file(file)
     return parse_from_json(read_file(file_path))
 
 
