@@ -39,7 +39,7 @@
                         "axisPlacement": "auto",
                         "barAlignment": 0,
                         "drawStyle": "line",
-                        "fillOpacity": 25,
+                        "fillOpacity": 0,
                         "gradientMode": "none",
                         "hideFrom": {
                             "legend": false,
@@ -80,12 +80,12 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 11,
-                "w": 20,
-                "x": 2,
+                "h": 8,
+                "w": 12,
+                "x": 0,
                 "y": 0
             },
-            "id": 2,
+            "id": 7,
             "options": {
                 "legend": {
                     "calcs": [],
@@ -98,18 +98,17 @@
                     "sort": "none"
                 }
             },
-            "pluginVersion": "10.0.3",
             "targets": [
                 {
                     "datasource": {
                         "type": "influxdb",
                         "uid": "P5697886F9CA74929"
                     },
-                    "query": "from(bucket: \"mdt_grpc\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"intf_stats\")\n  |> filter(fn: (r) => r[\"_field\"] == \"in_errors\" or r[\"_field\"] == \"in_octets\" or r[\"_field\"] == \"operational_status\" or r[\"_field\"] == \"out_errors\" or r[\"_field\"] == \"out_octets\")\n  |> aggregateWindow(every: v.windowPeriod, fn: median, createEmpty: false)\n  |> yield(name: \"median\")\n  ",
+                    "query": "from(bucket: \"mdt_grpc\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"Cisco-IOS-XE-process-cpu-oper:cpu-usage/cpu-utilization\")\n  |> filter(fn: (r) => r[\"source\"] == \"cat8000v-1\" or r[\"source\"] == \"cat8000v-0\")\n  |> filter(fn: (r) => r[\"subscription\"] == \"1010\")\n  |> filter(fn: (r) => r[\"path\"] == \"Cisco-IOS-XE-process-cpu-oper:cpu-usage/cpu-utilization\")\n  |> filter(fn: (r) => r[\"_field\"] == \"five_seconds\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
                     "refId": "A"
                 }
             ],
-            "title": "Panel Title",
+            "title": "CPU utilisation",
             "type": "timeseries"
         },
         {
@@ -170,12 +169,12 @@
                 "overrides": []
             },
             "gridPos": {
-                "h": 14,
-                "w": 20,
-                "x": 2,
-                "y": 11
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 0
             },
-            "id": 1,
+            "id": 5,
             "options": {
                 "legend": {
                     "calcs": [],
@@ -194,11 +193,278 @@
                         "type": "influxdb",
                         "uid": "P5697886F9CA74929"
                     },
-                    "query": "from(bucket: \"mdt_grpc\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"Cisco-IOS-XE-process-cpu-oper:cpu-usage/cpu-utilization\")\n  |> filter(fn: (r) => r[\"_field\"] == \"five_seconds\")\n  |> filter(fn: (r) => r[\"path\"] == \"Cisco-IOS-XE-process-cpu-oper:cpu-usage/cpu-utilization\")\n  |> filter(fn: (r) => r[\"source\"] == \"cat8000v-0\" or r[\"source\"] == \"cat8000v-1\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+                    "query": "from(bucket: \"mdt_grpc\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"intf_stats\")\n  |> filter(fn: (r) => r[\"_field\"] == \"in_octets\" or r[\"_field\"] == \"out_octets\")\n  |> filter(fn: (r) => r[\"device\"] == \"cat8000v-0\" or r[\"device\"] == \"cat8000v-1\")\n  |> filter(fn: (r) => r[\"ip\"] == \"10.10.20.176\" or r[\"ip\"] == \"10.10.20.175\")\n  |> filter(fn: (r) => r[\"name\"] == \"GigabitEthernet1\" or r[\"name\"] == \"GigabitEthernet2\" or r[\"name\"] == \"GigabitEthernet3\" or r[\"name\"] == \"GigabitEthernet4\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
                     "refId": "A"
                 }
             ],
-            "title": "Panel Title",
+            "title": "Interface In/Out traffic",
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "influxdb",
+                "uid": "P5697886F9CA74929"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 0,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "auto",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 8
+            },
+            "id": 6,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "influxdb",
+                        "uid": "P5697886F9CA74929"
+                    },
+                    "query": "from(bucket: \"mdt_grpc\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"memory_pool\")\n  |> filter(fn: (r) => r[\"_field\"] == \"percent_used\")\n  |> filter(fn: (r) => r[\"device\"] == \"cat8000v-0\" or r[\"device\"] == \"cat8000v-1\")\n  |> filter(fn: (r) => r[\"ip\"] == \"10.10.20.176\" or r[\"ip\"] == \"10.10.20.175\")\n  |> filter(fn: (r) => r[\"name\"] == \"Processor\" or r[\"name\"] == \"lsmpi_io\" or r[\"name\"] == \"reserve Processor\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+                    "refId": "A"
+                }
+            ],
+            "title": "Memory Usage",
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "influxdb",
+                "uid": "P5697886F9CA74929"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 0,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "auto",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 8
+            },
+            "id": 3,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "influxdb",
+                        "uid": "P5697886F9CA74929"
+                    },
+                    "query": "from(bucket: \"mdt_grpc\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"intf_stats\")\n  |> filter(fn: (r) => r[\"_field\"] == \"in_errors\" or r[\"_field\"] == \"out_errors\")\n  |> filter(fn: (r) => r[\"device\"] == \"cat8000v-0\" or r[\"device\"] == \"cat8000v-1\")\n  |> filter(fn: (r) => r[\"ip\"] == \"10.10.20.176\" or r[\"ip\"] == \"10.10.20.175\")\n  |> filter(fn: (r) => r[\"name\"] == \"GigabitEthernet1\" or r[\"name\"] == \"GigabitEthernet2\" or r[\"name\"] == \"GigabitEthernet3\" or r[\"name\"] == \"GigabitEthernet4\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+                    "refId": "A"
+                }
+            ],
+            "title": "Interface Errors",
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "influxdb",
+                "uid": "P5697886F9CA74929"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 0,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "auto",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 0,
+                "y": 16
+            },
+            "id": 4,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "influxdb",
+                        "uid": "P5697886F9CA74929"
+                    },
+                    "query": "from(bucket: \"mdt_grpc\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"intf_stats\")\n  |> filter(fn: (r) => r[\"_field\"] == \"operational_status\")\n  |> filter(fn: (r) => r[\"device\"] == \"cat8000v-0\" or r[\"device\"] == \"cat8000v-1\")\n  |> filter(fn: (r) => r[\"ip\"] == \"10.10.20.176\" or r[\"ip\"] == \"10.10.20.175\")\n  |> filter(fn: (r) => r[\"name\"] == \"GigabitEthernet1\" or r[\"name\"] == \"GigabitEthernet2\" or r[\"name\"] == \"GigabitEthernet3\" or r[\"name\"] == \"GigabitEthernet4\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+                    "refId": "A"
+                }
+            ],
+            "title": "Operational Status",
             "type": "timeseries"
         }
     ],
