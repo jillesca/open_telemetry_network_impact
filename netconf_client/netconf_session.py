@@ -1,38 +1,26 @@
+from dataclasses import dataclass
+from netconf_devices import netconf_device
 from ncclient import manager
-from ncclient.operations.errors import TimeoutExpiredError
-from ncclient.transport.errors import SSHError, AuthenticationError
 
 
-def connect_to(device: dict, netconf_filter: str) -> str:
-    try:
-        return connect(device, netconf_filter)
-    except AuthenticationError as error:
-        raise ValueError(f"{error=}") from error
+@dataclass
+class netconf_handler:
+    device: netconf_device
+    netconf_filter: str = None
 
-    except SSHError as error:
-        raise ValueError(f"{error=}") from error
+    def rpc_get(self, netconf_filter: str) -> str:
+        self.netconf_filter = netconf_filter
+        return self._connect(operation="GET")
 
-    except TimeoutExpiredError as error:
-        raise ValueError(f"{error=}") from error
-
-    except Exception as error:
-        raise ValueError(f"{error=}") from error
-
-
-def connect(device: dict, netconf_filter: str) -> str:
-    with manager.connect(
-        host=device.host,
-        port=device.port,
-        username=device.username,
-        password=device.password,
-        hostkey_verify=device.hostkey_verify,
-        device_params=device.device_params,
-    ) as session:
-        return rpc_get(
-            session,
-            netconf_filter,
-        )
-
-
-def rpc_get(session: manager, netconf_filter: str) -> str:
-    return session.get(netconf_filter)
+    def _connect(self, operation: str) -> str:
+        with manager.connect(
+            host=self.device.host,
+            port=self.device.port,
+            username=self.device.username,
+            password=self.device.password,
+            hostkey_verify=self.device.hostkey_verify,
+            device_params=self.device.device_params,
+        ) as m:
+            match operation:
+                case "GET":
+                    return m.get(self.netconf_filter)
