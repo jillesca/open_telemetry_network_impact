@@ -3,7 +3,6 @@ from file_utils import (
     find_devices_path,
     find_filter_path,
     remove_path,
-    write_to_file,
 )
 from text_utils import (
     parse_from_json,
@@ -14,8 +13,6 @@ from netconf_devices import netconf_device
 from factory import get_parser
 from netconf_session import connect_to
 from arg_parser import get_arg_parser
-
-LOG_FILE = "/tmp/netconf_client.log"
 
 
 def main():
@@ -45,11 +42,6 @@ def netconf_client():
         results += data_parsed
 
     parsed_results = parse_results_to_json(results)
-    write_to_file(file=LOG_FILE, text="\n")
-    write_to_file(file=LOG_FILE, text="#" * 50)
-    write_to_file(file=LOG_FILE, text="\n")
-    write_to_file(file=LOG_FILE, text=parsed_results)
-    write_to_file(file=LOG_FILE, text="\n")
     print(parsed_results)
 
 
