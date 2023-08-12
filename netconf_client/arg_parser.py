@@ -9,7 +9,7 @@ def get_arg_parser():
         help="Device Settings in json fomat",
     )
     parser.add_argument(
-        "--netconf_filter",
+        "--xml_filter",
         required=True,
         # default="netconf_interface_stats.xml",
         help="Netconf Filter to apply in xml format",

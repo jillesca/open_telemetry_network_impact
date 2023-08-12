@@ -13,7 +13,12 @@
       "console": "integratedTerminal",
       "justMyCode": true,
       // "args": ["--netconf_filter", "cisco_xe_ietf-interfaces.xml"]
-      "args": ["--netconf_filter", "Cisco-IOS-XE-memory-oper.xml"]
+      "args": [
+        "--xml_filter",
+        "Cisco-IOS-XE-memory-oper.xml",
+        "--device_settings",
+        "test_netconf_devices_settings.json"
+      ]
     }
   ]
 }
