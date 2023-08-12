@@ -1,12 +1,7 @@
-import logging
 from file_utils import read_file
 from ncclient import manager
 from ncclient.operations.errors import TimeoutExpiredError
 from ncclient.transport.errors import SSHError, AuthenticationError
-
-logging.basicConfig(
-    level=logging.CRITICAL,
-)
 
 
 def connect_to(device: dict, netconf_payload: str) -> str:
