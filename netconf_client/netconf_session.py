@@ -1,12 +1,11 @@
-from file_utils import read_file
 from ncclient import manager
 from ncclient.operations.errors import TimeoutExpiredError
 from ncclient.transport.errors import SSHError, AuthenticationError
 
 
-def connect_to(device: dict, netconf_payload: str) -> str:
+def connect_to(device: dict, netconf_filter: str) -> str:
     try:
-        return connect(device, netconf_payload)
+        return connect(device, netconf_filter)
     except AuthenticationError as error:
         raise ValueError(f"{error=}") from error
 
@@ -20,7 +19,7 @@ def connect_to(device: dict, netconf_payload: str) -> str:
         raise ValueError(f"{error=}") from error
 
 
-def connect(device: dict, netconf_payload: str) -> str:
+def connect(device: dict, netconf_filter: str) -> str:
     with manager.connect(
         host=device.host,
         port=device.port,
@@ -31,9 +30,9 @@ def connect(device: dict, netconf_payload: str) -> str:
     ) as session:
         return rpc_get(
             session,
-            read_file(netconf_payload),
+            netconf_filter,
         )
 
 
-def rpc_get(session: manager, netconf_payload: str) -> str:
-    return session.get(netconf_payload)
+def rpc_get(session: manager, netconf_filter: str) -> str:
+    return session.get(netconf_filter)

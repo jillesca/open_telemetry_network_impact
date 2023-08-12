@@ -29,7 +29,7 @@ def netconf_client():
     devices_settings = args.device_settings
     netconf_filter_id = args.xml_filter
 
-    netconf_filter = find_filter_path(netconf_filter_id)
+    netconf_filter = read_file(find_filter_path(netconf_filter_id))
     devices = load_settings(devices_settings)
 
     results = []
