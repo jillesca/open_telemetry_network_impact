@@ -12,13 +12,20 @@ from text_utils import (
 )
 from netconf_devices import netconf_device
 from factory import get_parser
-from netconf_session import connect
+from netconf_session import connect_to
 from arg_parser import get_arg_parser
 
 LOG_FILE = "/tmp/netconf_client.log"
 
 
 def main():
+    try:
+        netconf_client()
+    except Exception as error:
+        print(f"Failed {error=}")
+
+
+def netconf_client():
     args_parser = get_arg_parser()
     args = args_parser.parse_args()
 
@@ -31,7 +38,7 @@ def main():
     results = []
     for device in devices:
         net_device = netconf_device(**device)
-        data_xml = connect(net_device, netconf_filter)
+        data_xml = connect_to(net_device, netconf_filter)
         data_dict = parse_xml_to_dict(data_xml)
         parser = get_parser(remove_path(netconf_filter_id))
         data_parsed = parser.parse(data_dict, net_device)
