@@ -15,6 +15,6 @@ def get_arg_parser():
     )
     group.add_argument(
         "--xpath_filter",
-        help="Netconf Filter to apply in xpath. Format: <namespace>:<xpath> Eg. 'http://cisco.com/ns/yang/Cisco-IOS-XE-interfaces-oper:interfaces/interface' xpath is used as ID internally. ",
+        help="Netconf Filter to apply in xpath. Formats: <xpath> OR <namespace>:<xpath> Eg. 'interfaces/interface' OR 'http://cisco.com/ns/yang/Cisco-IOS-XE-interfaces-oper:interfaces/interface' xpath is used as ID internally. ",
     )
     return parser
