@@ -85,7 +85,7 @@
                 "x": 0,
                 "y": 0
             },
-            "id": 7,
+            "id": 8,
             "options": {
                 "legend": {
                     "calcs": [],
@@ -104,11 +104,11 @@
                         "type": "influxdb",
                         "uid": "P5697886F9CA74929"
                     },
-                    "query": "from(bucket: \"mdt_grpc\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"Cisco-IOS-XE-process-cpu-oper:cpu-usage/cpu-utilization\")\n  |> filter(fn: (r) => r[\"source\"] == \"cat8000v-1\" or r[\"source\"] == \"cat8000v-0\")\n  |> filter(fn: (r) => r[\"subscription\"] == \"1010\")\n  |> filter(fn: (r) => r[\"path\"] == \"Cisco-IOS-XE-process-cpu-oper:cpu-usage/cpu-utilization\")\n  |> filter(fn: (r) => r[\"_field\"] == \"five_seconds\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+                    "query": "from(bucket: \"mdt_grpc\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"interface_statistics\")\n  |> filter(fn: (r) => r[\"device\"] == \"cat8000v-1\" or r[\"device\"] == \"cat8000v-0\")\n  |> filter(fn: (r) => r[\"_field\"] == \"tx-kbps\" or r[\"_field\"] == \"rx-kbps\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
                     "refId": "A"
                 }
             ],
-            "title": "CPU utilisation",
+            "title": "Interface Traffic tx/rx kbps",
             "type": "timeseries"
         },
         {
@@ -173,95 +173,6 @@
                 "w": 12,
                 "x": 12,
                 "y": 0
-            },
-            "id": 5,
-            "options": {
-                "legend": {
-                    "calcs": [],
-                    "displayMode": "list",
-                    "placement": "bottom",
-                    "showLegend": true
-                },
-                "tooltip": {
-                    "mode": "single",
-                    "sort": "none"
-                }
-            },
-            "targets": [
-                {
-                    "datasource": {
-                        "type": "influxdb",
-                        "uid": "P5697886F9CA74929"
-                    },
-                    "query": "from(bucket: \"mdt_grpc\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"intf_stats\")\n  |> filter(fn: (r) => r[\"_field\"] == \"in_octets\" or r[\"_field\"] == \"out_octets\")\n  |> filter(fn: (r) => r[\"device\"] == \"cat8000v-0\" or r[\"device\"] == \"cat8000v-1\")\n  |> filter(fn: (r) => r[\"ip\"] == \"10.10.20.176\" or r[\"ip\"] == \"10.10.20.175\")\n  |> filter(fn: (r) => r[\"name\"] == \"GigabitEthernet1\" or r[\"name\"] == \"GigabitEthernet2\" or r[\"name\"] == \"GigabitEthernet3\" or r[\"name\"] == \"GigabitEthernet4\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
-                    "refId": "A"
-                }
-            ],
-            "title": "Interface In/Out traffic",
-            "type": "timeseries"
-        },
-        {
-            "datasource": {
-                "type": "influxdb",
-                "uid": "P5697886F9CA74929"
-            },
-            "fieldConfig": {
-                "defaults": {
-                    "color": {
-                        "mode": "palette-classic"
-                    },
-                    "custom": {
-                        "axisCenteredZero": false,
-                        "axisColorMode": "text",
-                        "axisLabel": "",
-                        "axisPlacement": "auto",
-                        "barAlignment": 0,
-                        "drawStyle": "line",
-                        "fillOpacity": 0,
-                        "gradientMode": "none",
-                        "hideFrom": {
-                            "legend": false,
-                            "tooltip": false,
-                            "viz": false
-                        },
-                        "lineInterpolation": "linear",
-                        "lineWidth": 1,
-                        "pointSize": 5,
-                        "scaleDistribution": {
-                            "type": "linear"
-                        },
-                        "showPoints": "auto",
-                        "spanNulls": false,
-                        "stacking": {
-                            "group": "A",
-                            "mode": "none"
-                        },
-                        "thresholdsStyle": {
-                            "mode": "off"
-                        }
-                    },
-                    "mappings": [],
-                    "thresholds": {
-                        "mode": "absolute",
-                        "steps": [
-                            {
-                                "color": "green",
-                                "value": null
-                            },
-                            {
-                                "color": "red",
-                                "value": 80
-                            }
-                        ]
-                    }
-                },
-                "overrides": []
-            },
-            "gridPos": {
-                "h": 8,
-                "w": 12,
-                "x": 0,
-                "y": 8
             },
             "id": 6,
             "options": {
@@ -349,10 +260,10 @@
             "gridPos": {
                 "h": 8,
                 "w": 12,
-                "x": 12,
+                "x": 0,
                 "y": 8
             },
-            "id": 3,
+            "id": 7,
             "options": {
                 "legend": {
                     "calcs": [],
@@ -371,11 +282,100 @@
                         "type": "influxdb",
                         "uid": "P5697886F9CA74929"
                     },
-                    "query": "from(bucket: \"mdt_grpc\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"intf_stats\")\n  |> filter(fn: (r) => r[\"_field\"] == \"in_errors\" or r[\"_field\"] == \"out_errors\")\n  |> filter(fn: (r) => r[\"device\"] == \"cat8000v-0\" or r[\"device\"] == \"cat8000v-1\")\n  |> filter(fn: (r) => r[\"ip\"] == \"10.10.20.176\" or r[\"ip\"] == \"10.10.20.175\")\n  |> filter(fn: (r) => r[\"name\"] == \"GigabitEthernet1\" or r[\"name\"] == \"GigabitEthernet2\" or r[\"name\"] == \"GigabitEthernet3\" or r[\"name\"] == \"GigabitEthernet4\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+                    "query": "from(bucket: \"mdt_grpc\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"Cisco-IOS-XE-process-cpu-oper:cpu-usage/cpu-utilization\")\n  |> filter(fn: (r) => r[\"source\"] == \"cat8000v-1\" or r[\"source\"] == \"cat8000v-0\")\n  |> filter(fn: (r) => r[\"subscription\"] == \"1010\")\n  |> filter(fn: (r) => r[\"path\"] == \"Cisco-IOS-XE-process-cpu-oper:cpu-usage/cpu-utilization\")\n  |> filter(fn: (r) => r[\"_field\"] == \"five_seconds\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
                     "refId": "A"
                 }
             ],
-            "title": "Interface Errors",
+            "title": "CPU utilisation",
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "influxdb",
+                "uid": "P5697886F9CA74929"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 0,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "auto",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 8
+            },
+            "id": 9,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "influxdb",
+                        "uid": "P5697886F9CA74929"
+                    },
+                    "query": "from(bucket: \"mdt_grpc\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"interface_statistics\")\n  |> filter(fn: (r) => r[\"device\"] == \"cat8000v-1\" or r[\"device\"] == \"cat8000v-0\")\n  |> filter(fn: (r) => r[\"_field\"] == \"operational_status\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+                    "refId": "A"
+                }
+            ],
+            "title": "Interface Oper status",
             "type": "timeseries"
         },
         {
@@ -441,7 +441,7 @@
                 "x": 0,
                 "y": 16
             },
-            "id": 4,
+            "id": 10,
             "options": {
                 "legend": {
                     "calcs": [],
@@ -460,15 +460,104 @@
                         "type": "influxdb",
                         "uid": "P5697886F9CA74929"
                     },
-                    "query": "from(bucket: \"mdt_grpc\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"intf_stats\")\n  |> filter(fn: (r) => r[\"_field\"] == \"operational_status\")\n  |> filter(fn: (r) => r[\"device\"] == \"cat8000v-0\" or r[\"device\"] == \"cat8000v-1\")\n  |> filter(fn: (r) => r[\"ip\"] == \"10.10.20.176\" or r[\"ip\"] == \"10.10.20.175\")\n  |> filter(fn: (r) => r[\"name\"] == \"GigabitEthernet1\" or r[\"name\"] == \"GigabitEthernet2\" or r[\"name\"] == \"GigabitEthernet3\" or r[\"name\"] == \"GigabitEthernet4\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+                    "query": "from(bucket: \"mdt_grpc\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"interface_statistics\")\n  |> filter(fn: (r) => r[\"device\"] == \"cat8000v-1\" or r[\"device\"] == \"cat8000v-0\")\n  |> filter(fn: (r) => r[\"_field\"] == \"num-flaps\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
                     "refId": "A"
                 }
             ],
-            "title": "Operational Status",
+            "title": "Interface flaps",
+            "type": "timeseries"
+        },
+        {
+            "datasource": {
+                "type": "influxdb",
+                "uid": "P5697886F9CA74929"
+            },
+            "fieldConfig": {
+                "defaults": {
+                    "color": {
+                        "mode": "palette-classic"
+                    },
+                    "custom": {
+                        "axisCenteredZero": false,
+                        "axisColorMode": "text",
+                        "axisLabel": "",
+                        "axisPlacement": "auto",
+                        "barAlignment": 0,
+                        "drawStyle": "line",
+                        "fillOpacity": 0,
+                        "gradientMode": "none",
+                        "hideFrom": {
+                            "legend": false,
+                            "tooltip": false,
+                            "viz": false
+                        },
+                        "lineInterpolation": "linear",
+                        "lineWidth": 1,
+                        "pointSize": 5,
+                        "scaleDistribution": {
+                            "type": "linear"
+                        },
+                        "showPoints": "auto",
+                        "spanNulls": false,
+                        "stacking": {
+                            "group": "A",
+                            "mode": "none"
+                        },
+                        "thresholdsStyle": {
+                            "mode": "off"
+                        }
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                            {
+                                "color": "green",
+                                "value": null
+                            },
+                            {
+                                "color": "red",
+                                "value": 80
+                            }
+                        ]
+                    }
+                },
+                "overrides": []
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 12,
+                "x": 12,
+                "y": 16
+            },
+            "id": 3,
+            "options": {
+                "legend": {
+                    "calcs": [],
+                    "displayMode": "list",
+                    "placement": "bottom",
+                    "showLegend": true
+                },
+                "tooltip": {
+                    "mode": "single",
+                    "sort": "none"
+                }
+            },
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "influxdb",
+                        "uid": "P5697886F9CA74929"
+                    },
+                    "query": "from(bucket: \"mdt_grpc\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r[\"_measurement\"] == \"interface_statistics\")\n  |> filter(fn: (r) => r[\"device\"] == \"cat8000v-1\" or r[\"device\"] == \"cat8000v-0\")\n  |> filter(fn: (r) => r[\"_field\"] == \"out_errors\" or r[\"_field\"] == \"in_errors\" or r[\"_field\"] == \"in-discards\" or r[\"_field\"] == \"in-crc-errors\" or r[\"_field\"] == \"in-errors-64\" or r[\"_field\"] == \"out-discards\" or r[\"_field\"] == \"out-broadcast-pkts\" or r[\"_field\"] == \"out-multicast-pkts\")\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\n  |> yield(name: \"mean\")",
+                    "refId": "A"
+                }
+            ],
+            "title": "Interface Errors",
             "type": "timeseries"
         }
     ],
-    "refresh": "30s",
+    "refresh": false,
     "schemaVersion": 38,
     "style": "dark",
     "tags": [],
@@ -476,8 +565,8 @@
         "list": []
     },
     "time": {
-        "from": "now-1h",
-        "to": "now"
+        "from": "2023-08-14T16:10:03.789Z",
+        "to": "2023-08-14T16:23:07.463Z"
     },
     "timepicker": {},
     "timezone": "",
