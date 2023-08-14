@@ -31,6 +31,8 @@ class parse_settings:
         return self._net_filter
 
     def _parse_xml(self, filter_id: str) -> None:
+        if ".xml" not in filter_id:
+            raise ValueError('no XML extension detected in filter')
         self._filter_id = filter_id
         self._net_filter = read_file(find_filter_path(filter_id))
 

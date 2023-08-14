@@ -28,7 +28,7 @@ class Interface_stats_iosxe_oper(Parser):
             if interface["oper-status"] == "if-oper-state-ready"
             else 0,
             "name": interface["name"].replace(" ", "_"),
-            "field": "intf_stats",
+            "field": "interface_statistics",
             "device": self.device.hostname,
             "ip": self.device.host,
         }
