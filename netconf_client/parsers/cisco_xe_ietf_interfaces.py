@@ -2,7 +2,7 @@ from netconf_parsers import Parser
 from netconf_devices import netconf_device
 
 
-class Interface_stats_iosxe(Parser):
+class Interface_stats_ietf_iosxe(Parser):
     def parse(self, data_to_parse: dict, net_device: netconf_device) -> list[dict]:
         self.net_device = net_device
         return self.intf_stats_xe_to_json(data_to_parse)
