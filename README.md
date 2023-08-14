@@ -41,8 +41,9 @@ show telemetry ietf subscription 1010 detail
 
 # Network Telemetry captured
 
-interface state -> dial out
-interface counters, specially traffic pps -> dial in
+<!-- interface state -> dial out
+interface counters, specially traffic pps -> dial in -->
+
 memory and cpu are fine -> dial in
 isis state -> dial out
 cdp neighboar might be?? -> dial in
@@ -50,20 +51,20 @@ cdp neighboar might be?? -> dial in
 <https://github.com/jeremycohoe/cisco-ios-xe-mdt/blob/master/cat9k-174-device-health-dashboa#L132>
 <https://github.com/jeremycohoe/cisco-ios-xe-mdt/blob/master/cat9k-174-device-health-dashboa#L150C6-L150C35>
 
-xpath_filter = "/process-cpu-ios-xe-oper:cpu-usage/cpu-utilization"
-update_trigger = "periodic"
+<!-- xpath_filter = "/process-cpu-ios-xe-oper:cpu-usage/cpu-utilization"
+update_trigger = "periodic" -->
 
-xpath_filter = "/memory-ios-xe-oper:memory-statistics/memory-statistic"
-update_trigger = "periodic"
+<!-- xpath_filter = "/memory-ios-xe-oper:memory-statistics/memory-statistic"
+update_trigger = "periodic" -->
 
-xpath_filter = "/oc-if:interfaces/interface/state/counters"
-update_trigger = "periodic"
+<!-- xpath_filter = "/oc-if:interfaces/interface/state/counters"
+update_trigger = "periodic" -->
 
-xpath_filter = "/interfaces-ios-xe-oper:interfaces/interface"
-update_trigger = "periodic"
+<!-- xpath_filter = "/interfaces-ios-xe-oper:interfaces/interface"
+update_trigger = "periodic" -->
 
-xpath_filter = "/if:interfaces-state"
-update_trigger = "periodic"
+<!-- xpath_filter = "/if:interfaces-state"
+update_trigger = "periodic" -->
 
 # Bonus: Create the lab using Ansible
 

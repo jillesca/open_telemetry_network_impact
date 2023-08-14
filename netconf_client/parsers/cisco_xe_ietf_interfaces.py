@@ -1,29 +1,33 @@
+from dataclasses import dataclass
 from netconf_parsers import Parser
 from netconf_devices import netconf_device
 
 
+@dataclass
 class Interface_stats_ietf_iosxe(Parser):
-    def parse(self, data_to_parse: dict, net_device: netconf_device) -> list[dict]:
-        self.net_device = net_device
-        return self.intf_stats_xe_to_json(data_to_parse)
+    device: netconf_device = None
 
-    def intf_stats_xe_to_json(self, rpc_reply: dict) -> list[dict]:
+    def parse(self, data: dict, device: netconf_device) -> list[dict]:
+        self.device = device
+        return self.interface_stats(data)
+
+    def interface_stats(self, data: dict) -> list[dict]:
         stats: list = []
-        xpath: dict = rpc_reply["rpc-reply"]["data"]["interfaces-state"]["interface"]
+        interfaces: dict = data["rpc-reply"]["data"]["interfaces-state"]["interface"]
 
-        for intf_entry in xpath:
-            stats.append(self.sort_stats(intf_entry))
+        for interface in interfaces:
+            stats.append(self.statistics(interface))
         return stats
 
-    def sort_stats(self, entry: dict) -> dict:
+    def statistics(self, interface: dict) -> dict:
         return {
-            "operational_status": 1 if entry["oper-status"] == "up" else 0,
-            "in_octets": int(entry["statistics"]["in-octets"]),
-            "in_errors": int(entry["statistics"]["in-errors"]),
-            "out_octets": int(entry["statistics"]["out-octets"]),
-            "out_errors": int(entry["statistics"]["out-errors"]),
-            "name": entry["name"].replace(" ", "_"),
+            "operational_status": 1 if interface["oper-status"] == "up" else 0,
+            "in_octets": int(interface["statistics"]["in-octets"]),
+            "in_errors": int(interface["statistics"]["in-errors"]),
+            "out_octets": int(interface["statistics"]["out-octets"]),
+            "out_errors": int(interface["statistics"]["out-errors"]),
+            "name": interface["name"].replace(" ", "_"),
             "field": "intf_stats",
-            "device": self.net_device.hostname,
-            "ip": self.net_device.host,
+            "device": self.device.hostname,
+            "ip": self.device.host,
         }
