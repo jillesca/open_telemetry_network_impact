@@ -8,6 +8,11 @@ def get_parser(netconf_filter: str) -> Parser:
 
             return Interface_stats_iosxe()
 
+        case "Cisco-IOS-XE-interfaces-oper.xml":
+            from parsers.cisco_ios_xe_interfaces_oper import Interface_stats_iosxe_oper
+
+            return Interface_stats_iosxe_oper()
+
         case "Cisco-IOS-XE-memory-oper.xml":
             from parsers.cisco_ios_xe_memory_oper import Cisco_ios_xe_memory_oper
 

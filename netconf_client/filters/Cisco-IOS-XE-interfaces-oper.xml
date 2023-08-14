@@ -1,0 +1,11 @@
+<filter xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <interfaces xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-interfaces-oper">
+    <interface>
+      <name />
+      <interface-type />
+      <admin-status />
+      <oper-status />
+      <statistics />
+    </interface>
+  </interfaces>
+</filter>

@@ -14,10 +14,10 @@
       "justMyCode": true,
       // "args": ["--netconf_filter", "cisco_xe_ietf-interfaces.xml"]
       "args": [
-        // "--xml_filter",
-        // "cisco_xe_ietf-interfaces.xml",
-        "--xpath_filter",
-        "http://cisco.com/ns/yang/Cisco-IOS-XE-interfaces-oper:interfaces/interface",
+        "--xml_filter",
+        "Cisco-IOS-XE-interfaces-oper.xml",
+        // "--xpath_filter",
+        // "http://cisco.com/ns/yang/Cisco-IOS-XE-interfaces-oper:interfaces/interface",
         // "interfaces/interface",
         "--device_settings",
         "devnet_xe_sandbox_settings.json"
