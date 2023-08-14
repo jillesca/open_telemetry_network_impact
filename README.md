@@ -1,6 +1,6 @@
 # Open Telemetry Network
 
-Go to [NSO 6 Reservable Sandbox](https://developer.cisco.com/site/sandbox/) and reserve a lab. **Clone this repo to the devbox VM.**
+Go to [NSO 6 Reservable Sandbox](https://developer.cisco.com/site/sandbox/) and reserve a lab. **Clone this repo to the devbox VM - 10.10.20.50 developer/C1sco12345**
 
 This lab doesn't use the default topology from the NSO sandbox.
 
@@ -44,7 +44,8 @@ show telemetry ietf subscription 1010 detail
 <!-- interface state -> dial out
 interface counters, specially traffic pps -> dial in -->
 
-memory and cpu are fine -> dial in
+<!-- memory and cpu are fine -> dial in -->
+
 isis state -> dial out
 cdp neighboar might be?? -> dial in
 
