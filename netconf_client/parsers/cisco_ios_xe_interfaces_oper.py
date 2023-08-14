@@ -24,7 +24,9 @@ class Interface_stats_iosxe_oper(Parser):
 
     def metadata(self, interface: dict) -> dict:
         return {
-            "operational_status": 1 if interface["oper-status"] == "up" else 0,
+            "operational_status": 1
+            if interface["oper-status"] == "if-oper-state-ready"
+            else 0,
             "name": interface["name"].replace(" ", "_"),
             "field": "intf_stats",
             "device": self.device.hostname,

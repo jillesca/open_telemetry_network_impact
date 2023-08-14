@@ -15,8 +15,8 @@
       // "args": ["--netconf_filter", "cisco_xe_ietf-interfaces.xml"]
       "args": [
         "--xml_filter",
-        "cisco_xe_ietf-interfaces.xml",
-        // "Cisco-IOS-XE-interfaces-oper.xml",
+        // "cisco_xe_ietf-interfaces.xml",
+        "Cisco-IOS-XE-interfaces-oper.xml",
         // "--xpath_filter",
         // "http://cisco.com/ns/yang/Cisco-IOS-XE-interfaces-oper:interfaces/interface",
         // "interfaces/interface",
