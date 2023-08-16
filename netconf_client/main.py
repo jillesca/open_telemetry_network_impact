@@ -49,10 +49,7 @@ def parse_results_to_json(data: any) -> str:
 
 
 def main() -> None:
-    try:
-        netconf_client()
-    except Exception as error:
-        print(f"Failed {error=} {type(error)}")
+    netconf_client()
 
 
 if __name__ == "__main__":
