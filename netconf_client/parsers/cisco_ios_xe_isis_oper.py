@@ -30,13 +30,22 @@ class isis_stats_iosxe_oper(Parser):
                 self.gather_metadata(value)
 
     def count_adjcencies(self, instance: list) -> None:
-        for neighbor in instance:
-            if "isis-adj-up" in neighbor["state"]:
+        # if you have 2 isis interfaces data comes inside a list.
+        # if you shutdown one interface and only 1 is up, the data will not come insdie a list.
+        if isinstance(instance, list):
+            for neighbor in instance:
+                if "isis-adj-up" in neighbor["state"]:
+                    self.isis_interfaces_adj_up += 1
+        else:
+            if "isis-adj-up" in instance["state"]:
                 self.isis_interfaces_adj_up += 1
 
     def gather_metadata(self, instance: list) -> None:
-        for neighbor in instance:
-            self.stats.append(self.metadata(neighbor))
+        if isinstance(instance, list):
+            for neighbor in instance:
+                self.stats.append(self.metadata(neighbor))
+        else:
+            self.stats.append(self.metadata(instance))
 
     def metadata(self, neighbor: dict) -> dict:
         return {
