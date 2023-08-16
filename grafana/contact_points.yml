@@ -1,0 +1,21 @@
+apiVersion: 1
+# https://grafana.com/docs/grafana/latest/administration/provisioning/#alerting
+
+notifiers:
+  - name: webhook
+    org_name: telemetry
+    is_default: true
+    uid: notifier1
+    send_reminder: true
+    type: webhook
+    settings:
+      url: $GRAFANA_WEB_HOOK
+      httpMethod: POST
+      maxAlerts: "10"
+      uploadImage: true
+      title: "this is happening!"
+      message: "is hapenning!!!!"
+delete_notifiers:
+  - name: webhook
+    org_name: telemetry
+    uid: notifier

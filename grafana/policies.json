@@ -1,0 +1,19 @@
+{
+    "receiver": "webhook notification",
+    "group_by": [
+        "grafana_folder",
+        "alertname"
+    ],
+    "routes": [
+        {
+            "receiver": "webhook notification",
+            "object_matchers": [
+                [
+                    "isis_down",
+                    "=",
+                    "int_down"
+                ]
+            ]
+        }
+    ]
+}

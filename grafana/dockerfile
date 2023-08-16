@@ -3,13 +3,19 @@ FROM grafana/grafana-oss:10.0.3
 EXPOSE 3000
 
 ARG GRAFANA_TOKEN
+ARG GRAFANA_WEB_HOOK
 
 ENV GRAFANA_TOKEN=${GRAFANA_TOKEN}
+ENV GRAFANA_WEB_HOOK=${GRAFANA_WEB_HOOK}
 
 COPY grafana/grafana.ini /etc/grafana/grafana.ini
 COPY grafana/datasources.yaml /etc/grafana/provisioning/datasources/datasources.yaml
 COPY grafana/dashboard.yaml /etc/grafana/provisioning/dashboards/dashboard.yaml
-COPY grafana/dashboard.json /etc/grafana/provisioning/dashboards/dashboard_test.json
+COPY grafana/dashboard.json /etc/grafana/provisioning/dashboards/dashboard.json
+
+COPY grafana/alerts.yaml /etc/grafana/provisioning/alerting/alerts.yaml
+COPY grafana/contact_points.yaml /etc/grafana/provisioning/alerting/contact_points.yaml
+COPY grafana/policies.json /etc/grafana/provisioning/dashboards/policies.json
 
 # Run from root directory
 # docker build --file grafana.dockerfile --tag grafana:test .
