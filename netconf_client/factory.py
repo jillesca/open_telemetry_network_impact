@@ -17,3 +17,8 @@ def get_parser(netconf_filter: str) -> Parser:
             from parsers.cisco_ios_xe_memory_oper import Cisco_ios_xe_memory_oper
 
             return Cisco_ios_xe_memory_oper()
+
+        case "Cisco-IOS-XE-isis-oper.xml":
+            from parsers.cisco_ios_xe_isis_oper import isis_stats_iosxe_oper
+
+            return isis_stats_iosxe_oper()
