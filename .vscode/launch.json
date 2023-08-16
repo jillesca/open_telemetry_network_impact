@@ -15,13 +15,14 @@
       // "args": ["--netconf_filter", "cisco_xe_ietf-interfaces.xml"]
       "args": [
         "--xml_filter",
-        "cisco_xe_ietf-interfaces.xml",
+        "Cisco-IOS-XE-isis-oper.xml",
         // "Cisco-IOS-XE-interfaces-oper.xml",
         // "--xpath_filter",
         // "http://cisco.com/ns/yang/Cisco-IOS-XE-interfaces-oper:interfaces/interface",
         // "interfaces/interface",
         "--device_settings",
-        "devnet_xe_sandbox_settings.json"
+        "cat8000v-0_settings.json"
+        // "devnet_xe_sandbox_settings.json"
       ]
     }
   ]
