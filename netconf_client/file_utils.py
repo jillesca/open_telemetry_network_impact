@@ -8,6 +8,7 @@ def read_file(file: str) -> str:
     with open(file, "r") as f:
         return f.read()
 
+
 def write_to_file(file, text) -> str:
     with open(file, "a") as f:
         return f.write(text)
@@ -54,4 +55,7 @@ def default_filter_working_dir(file: str) -> str:
 
 
 def remove_path(file: str) -> str:
+    # in the case of xpath, don't remove the namespace. For Cisco starts with http://
+    if "http://" or "https://" in file:
+        return file
     return os.path.basename(file)
