@@ -40,12 +40,12 @@ class isis_stats_iosxe_oper(Parser):
 
     def metadata(self, neighbor: dict) -> dict:
         return {
-            "isis_adjancecy_status": 1 if "isis-adj-up" in neighbor["state"] else 0,
+            "isis_interfaces_adj_up": self.isis_interfaces_adj_up,
+            "isis_status": neighbor["state"],
             "neighbor_id": neighbor["system-id"].replace(" ", "_"),
             "field": FIELD_CODE,
             "device": self.device.hostname,
             "ip": self.device.host,
             "interface_name": neighbor["if-name"],
             "ipv4_address": neighbor["ipv4-address"],
-            "isis_interfaces_adj_up": self.isis_interfaces_adj_up,
         }
