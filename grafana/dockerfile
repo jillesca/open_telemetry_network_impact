@@ -14,7 +14,7 @@ COPY grafana/dashboard.yaml /etc/grafana/provisioning/dashboards/dashboard.yaml
 COPY grafana/dashboard.json /etc/grafana/provisioning/dashboards/dashboard.json
 
 COPY grafana/alerts.yaml /etc/grafana/provisioning/alerting/alerts.yaml
-COPY grafana/contact_points.yaml /etc/grafana/provisioning/alerting/contact_points.yaml
+COPY grafana/contact_points.json /etc/grafana/provisioning/alerting/contact_points.json
 COPY grafana/policies.json /etc/grafana/provisioning/dashboards/policies.json
 
 # Run from root directory
