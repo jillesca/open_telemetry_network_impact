@@ -2,7 +2,7 @@ apiVersion: 1
 # https://grafana.com/docs/grafana/latest/administration/provisioning/#alerting
 
 notifiers:
-  - name: webhook
+  - name: "webhook notification"
     org_name: telemetry
     is_default: true
     uid: notifier1
@@ -16,6 +16,6 @@ notifiers:
       title: "this is happening!"
       message: "is hapenning!!!!"
 delete_notifiers:
-  - name: webhook
+  - name: "webhook notification"
     org_name: telemetry
     uid: notifier
