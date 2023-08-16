@@ -8,7 +8,13 @@
  Pass: C1sco12345
 ```
 
-#### Prepare & start NSO
+#### Bash process
+
+```bash
+bash start_run_nso.sh
+```
+
+#### Manual Process
 
 ```bash
 source ~/nso/ncsrc
@@ -20,7 +26,7 @@ cd nso-instance
 ncs
 ```
 
-#### Connect to NSO
+##### Connect to NSO
 
 ```bash
 ncs_cli -C -u admin
@@ -31,7 +37,7 @@ For a quick copy paste use `load merge terminal`
 
 Once the config is added use Ctrl+d to return to the NSO prompt
 
-#### Add IOS-XE devices
+##### Add IOS-XE devices
 
 ```bash
 devices authgroups group labadmin
@@ -63,7 +69,7 @@ Sync to devices
 do devices sync-from
 ```
 
-##### Add config for Cat8000v-0
+###### Add config for Cat8000v-0
 
 ```bash
 devices device cat8000v-0
@@ -105,7 +111,7 @@ devices device cat8000v-0
 
 ```
 
-##### Add config for Cat8000v-1
+###### Add config for Cat8000v-1
 
 ```bash
 devices device cat8000v-1
