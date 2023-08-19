@@ -8,6 +8,7 @@ source .env
 docker build \
         --target llm \
         --build-arg LLM_API_KEY=$LLM_API_KEY \
+        --build-arg LLM_HTTP_LISTEN_PORT=$LLM_HTTP_LISTEN_PORT \
         --file llm/dockerfile \
         --tag llm:$LLM_TAG .
 
