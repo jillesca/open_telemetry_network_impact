@@ -1,0 +1,25 @@
+FROM python:alpine3.18 as base
+
+ENV PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=off \
+    PIP_NO_WARN_SCRIPT_LOCATION=0 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_DISABLE_ROOT_WARNING=ignore
+
+COPY llm/requirements.txt .
+
+RUN apk add bash \
+    && pip install -r requirements.txt 
+
+WORKDIR /home
+
+
+FROM base as llm
+
+EXPOSE 80 443
+
+ARG LLM_TOKEN
+
+ENV LLM_TOKEN=${LLM_TOKEN}
+
+# COPY langchain .
