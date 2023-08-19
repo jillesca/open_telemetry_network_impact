@@ -1,9 +1,12 @@
-from flask import Flask, request, jsonify
 import os
 import json
+import logging
+from flask import Flask, request, jsonify
 
 LLM_API_KEY = os.environ["LLM_API_KEY"]
 LLM_HTTP_LISTEN_PORT = os.environ["LLM_HTTP_LISTEN_PORT"]
+
+logging.basicConfig(filename="flask.log", level=logging.DEBUG)
 
 app = Flask(__name__)
 
