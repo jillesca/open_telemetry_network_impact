@@ -100,3 +100,13 @@ ansible-playbook cisco.cml.build -e startup='host' -e wait='yes'
 
 - <https://github.com/jeremycohoe/cisco-ios-xe-mdt/tree/master>
 - <https://anirudhkamath.github.io/network-automation-blog/notes/network-telemetry-using-netconf-telegraf-prometheus.html>
+
+# Find which subscriptions could be on-change
+
+Use `show platform software ndbman ...` and autocomplete for your device.
+
+On the lab you can use
+
+```bash
+show platform software ndbman R0 models | inc Emul|no
+```
