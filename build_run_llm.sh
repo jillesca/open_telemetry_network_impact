@@ -7,11 +7,11 @@ source .env
 
 docker build \
         --target llm \
-        --build-arg LLM_TOKEN=$LLM_TOKEN \
+        --build-arg LLM_API_KEY=$LLM_API_KEY \
         --file llm/dockerfile \
         --tag llm:$LLM_TAG .
 
-docker run -itd -p 80:80 -p 443:443 --name llm \
+docker run -itd -p 8080:8080 -p 443:443 --name llm \
         -v ${PWD}/langchain:/home/langchain/ \
         --add-host host.docker.internal:host-gateway llm:$LLM_TAG
 
