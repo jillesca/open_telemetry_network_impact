@@ -1,1 +1,4 @@
 flask
+langchain
+chromadb
+openai
