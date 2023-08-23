@@ -5,23 +5,13 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "cwd": "${workspaceFolder}/netconf_client",
+      "cwd": "${workspaceFolder}/langchain",
       "name": "Python: Current File",
       "type": "python",
       "request": "launch",
-      "program": "${workspaceFolder}/netconf_client/main.py",
+      "program": "${workspaceFolder}/langchain/${filename}",
       "console": "integratedTerminal",
-      "justMyCode": true,
-      // "args": ["--netconf_filter", "cisco_xe_ietf-interfaces.xml"]
-      "args": [
-        // "--xml_filter",
-        // "Cisco-IOS-XE-interfaces-oper.xml",
-        "--xpath_filter",
-        "http://cisco.com/ns/yang/Cisco-IOS-XE-isis-oper:/isis-oper-data/isis-instance",
-        "--device_settings",
-        "cat8000v-0_settings.json"
-        // "devnet_xe_sandbox_settings.json"
-      ]
+      "justMyCode": true
     }
   ]
 }

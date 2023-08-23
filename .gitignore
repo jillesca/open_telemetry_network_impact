@@ -3,3 +3,4 @@ ncs-*.signed.bin
 **/__pycache__/
 old.*
 .venv
+flask.log

@@ -26,4 +26,4 @@ ENV LLM_HTTP_LISTEN_PORT=${LLM_HTTP_LISTEN_PORT}
 
 # COPY langchain .
 
-ENTRYPOINT ["python","/home/langchain/http_server.py"]
+ENTRYPOINT ["python","/home/langchain/app.py"]
