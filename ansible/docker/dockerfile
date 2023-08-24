@@ -8,7 +8,9 @@ RUN apk add \
     libssh-dev \
     openssh-client \
     && pip install --upgrade pip \
-    && pip3 install -r requirements.txt
+    && pip3 install -r requirements.txt \
+    && pip install virl2-client==2.5.0 \
+    && ansible-galaxy collection install cisco.cml
 WORKDIR /home
 
 
@@ -31,7 +33,4 @@ ENV CML_VERIFY_CERT=${CML_VERIFY_CERT}
 COPY ansible/cml_lab/* /home/cml_lab/
 COPY ansible/inventory/* /home/inventory/
 COPY ansible/ansible.cfg /home/ansible.cfg
-
-RUN pip install virl2-client==2.5.0 \
-    && ansible-galaxy collection install cisco.cml
 
