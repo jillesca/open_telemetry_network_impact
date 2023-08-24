@@ -35,4 +35,4 @@ ENV CML_USERNAME=${CML_USERNAME}
 ENV CML_PASSWORD=${CML_PASSWORD}
 ENV CML_VERIFY_CERT=${CML_VERIFY_CERT}
 
-COPY cml/ansible/ /home/cml_lab/
+COPY cml/ansible/ /home/
