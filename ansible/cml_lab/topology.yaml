@@ -257,15 +257,43 @@ nodes:
       no logging console
       enable password cisco
       !
-      no aaa new-model
+      aaa new-model
+      !
+      aaa authentication login default local
+      aaa authorization exec default local 
+      !
+      aaa session-id common
+      !
       !
       username cisco privilege 15 secret 9 $9$iVecEqVTUJzHUk$EO2BfGoo4I8.wW.QanPw2rSxwy9NJt6kc3xFNEFLYSA
+      username admin privilege 15 password 0 Cisco123
       !
       interface GigabitEthernet1
        description to port1.sandbox-backend
        ip address 10.10.20.175 255.255.255.0
        negotiation auto
        no shutdown
+      !
+      interface GigabitEthernet2
+       ip address 10.1.1.1 255.255.255.0
+       ip router isis 
+       negotiation auto
+       no shutdown
+      !
+      interface GigabitEthernet3
+       no ip address
+       no shutdown
+       negotiation auto
+      !
+      interface GigabitEthernet4
+       ip address 10.2.2.1 255.255.255.0
+       ip router isis 
+       negotiation auto
+       no shutdown
+      !
+      router isis
+       net 49.0001.0000.0000.000a.00
+       is-type level-1
       !
       no ip http server
       ip http secure-server
@@ -280,22 +308,23 @@ nodes:
       line vty 0
        exec-timeout 0 0
        password cisco
-       login local
        transport input telnet ssh
-      line vty 1
+      line vty 1 4
        exec-timeout 0 0
        password cisco
-       login local
        length 0
        transport input telnet ssh
-      line vty 2 4
-       exec-timeout 0 0
-       password cisco
-       login local
-       transport input telnet ssh
       !
-      !
+      telemetry ietf subscription 1010
+       encoding encode-kvgpb
+       filter xpath /process-cpu-ios-xe-oper:cpu-usage/cpu-utilization/five-seconds
+       source-address 10.10.20.175
+       stream yang-push
+       update-policy periodic 2000
+       receiver ip address 10.10.20.50 57500 protocol grpc-tcp
+      netconf-yang
       restconf
+      !
     cpu_limit: null
     cpus: null
     data_volume: null
@@ -336,15 +365,44 @@ nodes:
       no logging console
       enable password cisco
       !
-      no aaa new-model
+      aaa new-model
+      !
+      aaa authentication login default local
+      aaa authorization exec default local 
+      !
+      aaa session-id common
+      !
       !
       username cisco privilege 15 secret 9 $9$iVecEqVTUJzHUk$EO2BfGoo4I8.wW.QanPw2rSxwy9NJt6kc3xFNEFLYSA
+      username admin privilege 15 password 0 Cisco123
+      !
       !
       interface GigabitEthernet1
        description to port2.sandbox-backend
        ip address 10.10.20.176 255.255.255.0
        negotiation auto
        no shutdown
+      !
+      interface GigabitEthernet2
+       ip address 10.1.1.2 255.255.255.0
+       ip router isis 
+       negotiation auto
+       no shutdown
+      !
+      interface GigabitEthernet3
+       ip address 172.16.102.1 255.255.255.0
+       negotiation auto
+       no shutdown
+      !
+      interface GigabitEthernet4
+       ip address 10.2.2.2 255.255.255.0
+       ip router isis 
+       negotiation auto
+       no shutdown
+      !
+      router isis
+       net 49.0001.0000.0000.000b.00
+       is-type level-1
       !
       no ip http server
       ip http secure-server
@@ -359,22 +417,28 @@ nodes:
       line vty 0
        exec-timeout 0 0
        password cisco
-       login local
        transport input telnet ssh
       line vty 1
        exec-timeout 0 0
        password cisco
-       login local
        length 0
        transport input telnet ssh
       line vty 2 4
        exec-timeout 0 0
        password cisco
-       login local
        transport input telnet ssh
       !
       !
+      telemetry ietf subscription 1010
+       encoding encode-kvgpb
+       filter xpath /process-cpu-ios-xe-oper:cpu-usage/cpu-utilization/five-seconds
+       source-address 10.10.20.176
+       stream yang-push
+       update-policy periodic 2000
+       receiver ip address 10.10.20.50 57500 protocol grpc-tcp
+      netconf-yang
       restconf
+      !
     cpu_limit: null
     cpus: null
     data_volume: null
