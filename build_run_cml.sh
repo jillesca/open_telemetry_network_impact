@@ -18,6 +18,14 @@ docker build \
 
 docker run -itd --name cml cml:$CML_TAG
 
+echo "\nRemoving default CML lab\n"
+docker exec -it cml ansible-playbook cisco.cml.clean -e cml_lab="'Multi Platform Network'"
+
+echo "\nCreating telemetry lab\n"
+docker exec -it cml ansible-playbook ansible-playbook cisco.cml.build -e startup='host' -e wait='yes' -e cml_lab_file=$CML_LAB_FILE
+
+
+
 echo "\n################################"
 echo "To access the container use:"
 echo "docker exec -it cml /bin/sh"
