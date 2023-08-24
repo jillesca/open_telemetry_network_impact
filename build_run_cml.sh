@@ -12,7 +12,7 @@ docker build \
     --build-arg CML_PASSWORD=$CML_PASSWORD \
     --build-arg CML_LAB_FILE=$CML_LAB_FILE \
     --build-arg CML_VERIFY_CERT=$CML_VERIFY_CERT \
-    --file ansible/docker/dockerfile \
+    --file cml/dockerfile \
     --tag cml:$CML_TAG \
     .
 

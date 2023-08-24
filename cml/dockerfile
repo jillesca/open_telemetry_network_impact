@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 # FROM python:alpine3.16 AS base
-# COPY ./ansible/docker/requirements.txt .
+# COPY ./cml/requirements.txt .
 # RUN apk add \
 #     gcc \
 #     musl-dev \
@@ -35,7 +35,4 @@ ENV CML_USERNAME=${CML_USERNAME}
 ENV CML_PASSWORD=${CML_PASSWORD}
 ENV CML_VERIFY_CERT=${CML_VERIFY_CERT}
 
-COPY ansible/cml_lab/* /home/cml_lab/
-COPY ansible/inventory/* /home/inventory/
-COPY ansible/ansible.cfg /home/ansible.cfg
-
+COPY cml/ansible/ /home/cml_lab/
