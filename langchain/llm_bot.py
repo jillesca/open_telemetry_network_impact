@@ -7,7 +7,6 @@ from langchain.prompts import (
 )
 from langchain.chains import ConversationChain
 from langchain.chat_models import ChatOpenAI
-from langchain.memory import ConversationBufferMemory
 from langchain.memory import ConversationSummaryBufferMemory
 
 
@@ -38,7 +37,11 @@ class LLM_Chatbot:
         memory = ConversationSummaryBufferMemory(
             llm=llm, max_token_limit=3000, return_messages=True
         )
-        self.conversation = ConversationChain(memory=memory, prompt=prompt, llm=llm)
+        self.conversation = ConversationChain(
+            memory=memory,
+            prompt=prompt,
+            llm=llm,
+        )
 
     def conversations(self, data: str):
         return self.conversation({"input": data})
@@ -47,10 +50,20 @@ class LLM_Chatbot:
 if __name__ == "__main__":
     chatbot = LLM_Chatbot()
     chatbot.conversations("tell me a joke about developers")
-    print(chatbot.__dict__)
+    print("#" * 80, "\n")
+    print(chatbot.conversation.memory.chat_memory.messages[-1].content)
+    print("#" * 80, "\n")
     chatbot.conversations("now about lawyers")
-    print(chatbot.__dict__)
+    print("#" * 80, "\n")
+    print(chatbot.conversation.memory.chat_memory.messages[-1].content)
+    print("#" * 80, "\n")
     chatbot.conversations("now make a one, but consider the previous answer")
-    print(chatbot.__dict__)
+    print("#" * 80, "\n")
+    print(chatbot.conversation.memory.chat_memory.messages[-1].content)
+    print("#" * 80, "\n")
     chatbot.conversations("can you do a summary of what we talked about?")
+    print("#" * 80, "\n")
+    print(chatbot.conversation.memory.chat_memory.messages[-1].content)
+    print("#" * 80, "\n")
     print(chatbot.__dict__)
+    print("yes")

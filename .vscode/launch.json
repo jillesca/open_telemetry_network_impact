@@ -9,7 +9,7 @@
       "name": "Python: Current File",
       "type": "python",
       "request": "launch",
-      "program": "${workspaceFolder}/langchain/${filename}",
+      "program": "${file}",
       "console": "integratedTerminal",
       "justMyCode": true
     }
