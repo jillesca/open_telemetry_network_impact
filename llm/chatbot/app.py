@@ -10,7 +10,7 @@ try:
 except:
     LLM_HTTP_LISTEN_PORT = 8080
 
-logging.basicConfig(filename="flask.log", level=logging.DEBUG)
+logging.basicConfig(filename="flask.log", level=logging.INFO)
 
 
 app = Flask(__name__)
@@ -29,7 +29,7 @@ def process_webhook(data: dict) -> None:
     analyse += json.dumps(data.get("state", ""))
     analyse += json.dumps(data.get("message", ""))
     analyse += json.dumps(data.get("commonAnnotations", ""))
-    logging.info(analyse)
+    logging.debug(analyse)
     answer = chat_to_ai(json.dumps(analyse))
     msg = f"LLM answered: {answer}"
     logging.info(msg)
@@ -40,7 +40,7 @@ def process_webhook(data: dict) -> None:
 def receive_webhook():
     if request.method == "POST":
         data = request.json
-        logging.info(data)
+        logging.debug(data)
 
         # Grafana sends empty post to validate the webhook.
         if "firing" in data["status"]:
@@ -50,4 +50,4 @@ def receive_webhook():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=LLM_HTTP_LISTEN_PORT, debug=True)
+    app.run(host="0.0.0.0", port=LLM_HTTP_LISTEN_PORT, debug=False)
