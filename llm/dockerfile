@@ -23,6 +23,6 @@ ARG LLM_HTTP_LISTEN_PORT
 ENV LLM_API_KEY=${LLM_API_KEY}
 ENV LLM_HTTP_LISTEN_PORT=${LLM_HTTP_LISTEN_PORT}
 
-# COPY llm/chatbot .
+COPY llm/chatbot .
 
-ENTRYPOINT ["python","/home/chatbot/app.py"]
+ENTRYPOINT ["python","/home/app.py"]

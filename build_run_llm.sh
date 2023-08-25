@@ -15,8 +15,8 @@ docker build \
         --tag llm:$LLM_TAG .
 
 docker run -itd -p 8080:8080 -p 443:443 --name llm \
-        -v ${PWD}/llm/chatbot:/home/chatbot/ \
         --add-host host.docker.internal:host-gateway llm:$LLM_TAG
+        # -v ${PWD}/llm/chatbot:/home/chatbot/ \
 
 echo "\n################################"
 echo "To access the container use:"

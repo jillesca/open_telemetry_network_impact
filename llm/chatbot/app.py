@@ -10,7 +10,7 @@ try:
 except:
     LLM_HTTP_LISTEN_PORT = 8080
 
-logging.basicConfig(filename="flask.log", level=logging.INFO)
+logging.basicConfig(filename="flask.log", level=logging.DEBUG)
 
 
 app = Flask(__name__)
@@ -19,18 +19,20 @@ chatbot = LLM_Chatbot()
 
 
 def chat_to_ai(data: str) -> str:
+    logging.info("Reviewing Data with AI.")
+    print("Reviewing Data with AI.", flush=True)
     return chatbot.chat(data)
 
 
 def process_webhook(data: dict) -> None:
     analyse = ""
-    analyse += json.dumps(data.get("commonLabels", ""))
-    analyse += json.dumps(data.get("title", ""))
-    analyse += json.dumps(data.get("state", ""))
-    analyse += json.dumps(data.get("message", ""))
-    analyse += json.dumps(data.get("commonAnnotations", ""))
+    analyse += json.dumps(data.get("commonLabels"))
+    analyse += json.dumps(data.get("title"))
+    analyse += json.dumps(data.get("state"))
+    analyse += json.dumps(data.get("message"))
+    analyse += json.dumps(data.get("commonAnnotations"))
     logging.debug(analyse)
-    answer = chat_to_ai(json.dumps(analyse))
+    answer = chat_to_ai(analyse)
     msg = f"LLM answered: {answer}"
     logging.info(msg)
     print(msg, flush=True)
@@ -40,6 +42,8 @@ def process_webhook(data: dict) -> None:
 def receive_webhook():
     if request.method == "POST":
         data = request.json
+        logging.info("Received webhook.")
+        print("Received Webhook", flush=True)
         logging.debug(data)
 
         # Grafana sends empty post to validate the webhook.
@@ -50,4 +54,4 @@ def receive_webhook():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=LLM_HTTP_LISTEN_PORT, debug=False)
+    app.run(host="0.0.0.0", port=LLM_HTTP_LISTEN_PORT, debug=DEBUG)
