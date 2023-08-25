@@ -38,3 +38,10 @@ class LLM_Chatbot:
 
     def conversations(self, data: str) -> LLMChain:
         return self.conversation({"question": data})
+
+
+if __name__ == "__main__":
+    chatbot = LLM_Chatbot()
+    chatbot.conversations("tell me a joke about developers")
+    chatbot.conversations("now about lawyers")
+    print(chatbot)
