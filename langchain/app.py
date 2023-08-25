@@ -18,7 +18,7 @@ chatbot = LLM_Chatbot()
 
 
 def talk_to_chat(data: str) -> dict:
-    return chatbot.conversations(data)
+    return chatbot.chat(data)
 
 
 def process_webhook(data: dict) -> None:

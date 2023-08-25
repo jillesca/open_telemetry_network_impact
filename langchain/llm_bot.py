@@ -15,7 +15,8 @@ SYSTEM_PROMPT = """
     You are chatbot who receives alerts based on telemetry data from network devices. 
     Your job is to make sense of the alert received and process for an engineer. 
     Provide as much help as possible, but don't invent. reply in markdown format.
-    If you receive new information that differs from previous conversation review if the events could be related
+    If you receive new information that differs from previous conversation review if the events could be related.
+    If I ask you for a joke give me a good one.
     """
 
 
@@ -24,7 +25,7 @@ class LLM_Chatbot:
         self._start_llm()
 
     def _start_llm(self):
-        llm = ChatOpenAI(openai_api_key=LLM_API_KEY, temperature=0)
+        llm = ChatOpenAI(openai_api_key=LLM_API_KEY, temperature=1)
         prompt = ChatPromptTemplate.from_messages(
             [
                 SystemMessagePromptTemplate.from_template(
@@ -43,27 +44,25 @@ class LLM_Chatbot:
             llm=llm,
         )
 
-    def conversations(self, data: str):
-        return self.conversation({"input": data})
+    def chat(self, data: str) -> str:
+        answer = self.conversation({"input": data})
+        return self.get_latest_ai_message(answer)
+
+    def get_latest_ai_message(self, answer: list) -> str:
+        return answer["history"][-1].content
 
 
 if __name__ == "__main__":
     chatbot = LLM_Chatbot()
-    chatbot.conversations("tell me a joke about developers")
+    joke = chatbot.chat("tell me a joke about developers")
+    print(joke)
     print("#" * 80, "\n")
-    print(chatbot.conversation.memory.chat_memory.messages[-1].content)
+    joke = chatbot.chat("now about lawyers")
+    print(joke)
     print("#" * 80, "\n")
-    chatbot.conversations("now about lawyers")
+    joke = chatbot.chat("now make a one, but consider the previous answer")
+    print(joke)
     print("#" * 80, "\n")
-    print(chatbot.conversation.memory.chat_memory.messages[-1].content)
+    joke = chatbot.chat("can you do a summary of what we talked about?")
+    print(joke)
     print("#" * 80, "\n")
-    chatbot.conversations("now make a one, but consider the previous answer")
-    print("#" * 80, "\n")
-    print(chatbot.conversation.memory.chat_memory.messages[-1].content)
-    print("#" * 80, "\n")
-    chatbot.conversations("can you do a summary of what we talked about?")
-    print("#" * 80, "\n")
-    print(chatbot.conversation.memory.chat_memory.messages[-1].content)
-    print("#" * 80, "\n")
-    print(chatbot.__dict__)
-    print("yes")
