@@ -32,6 +32,7 @@ def process_webhook(data: dict) -> None:
     analyse += json.dumps(data.get("message"))
     analyse += json.dumps(data.get("commonAnnotations"))
     logging.debug(analyse)
+    print(analyse, flush=True)
     answer = chat_to_ai(analyse)
     msg = f"LLM answered: {answer}"
     logging.info(msg)
@@ -54,4 +55,4 @@ def receive_webhook():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=LLM_HTTP_LISTEN_PORT, debug=DEBUG)
+    app.run(host="0.0.0.0", port=LLM_HTTP_LISTEN_PORT, debug=True)
