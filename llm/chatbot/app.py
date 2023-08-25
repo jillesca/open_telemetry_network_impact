@@ -32,7 +32,7 @@ def process_webhook(data: dict) -> None:
     analyse += json.dumps(data.get("message"))
     analyse += json.dumps(data.get("commonAnnotations"))
     logging.debug(analyse)
-    print(analyse, flush=True)
+    # print(analyse, flush=True)
     answer = chat_to_ai(analyse)
     msg = f"LLM answered: {answer}"
     logging.info(msg)
