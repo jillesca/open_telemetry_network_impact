@@ -4,6 +4,8 @@ set -eu # Abort the script if a command returns with a non-zero exit code or if
 
 source .env.local
 
+docker rm -f influxdb
+
 docker build \
         --file influxdb/dockerfile \
         --build-arg DOCKER_INFLUXDB_INIT_MODE=$INFLUXDB_MODE \

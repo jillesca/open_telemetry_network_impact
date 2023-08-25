@@ -191,3 +191,97 @@ groups:
         labels:
           isis_down: int_down
         isPaused: false
+  - orgId: 1
+    name: int_down_group
+    folder: interfaces_down
+    interval: 10s
+    rules:
+      - uid: d94bd897-f4c8-42e5-bbe3-38270ee12585
+        title: cat8000 intf down
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: P5697886F9CA74929
+            model:
+              intervalMs: 1000
+              maxDataPoints: 43200
+              query: |-
+                from(bucket: "mdt_grpc")
+                  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+                  |> filter(fn: (r) => r["_measurement"] == "interface_statistics")
+                  |> filter(fn: (r) => r["device"] == "cat8000v-1" or r["device"] == "cat8000v-0")
+                  |> filter(fn: (r) => r["_field"] == "operational_status")
+                  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)
+                  |> yield(name: "mean")
+              refId: A
+          - refId: B
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: __expr__
+            model:
+              conditions:
+                - evaluator:
+                    params: []
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - B
+                  reducer:
+                    params: []
+                    type: last
+                  type: query
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: A
+              intervalMs: 1000
+              maxDataPoints: 43200
+              reducer: last
+              refId: B
+              settings:
+                mode: replaceNN
+                replaceWithValue: 0
+              type: reduce
+          - refId: C
+            relativeTimeRange:
+              from: 600
+              to: 0
+            datasourceUid: __expr__
+            model:
+              conditions:
+                - evaluator:
+                    params:
+                      - 1
+                    type: lt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - C
+                  reducer:
+                    params: []
+                    type: last
+                  type: query
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: B
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: C
+              type: threshold
+        noDataState: NoData
+        execErrState: Error
+        for: 10s
+        annotations:
+          description: backbone Interface not in desired state. May cause issues in the network.
+          summary: Interfaces down cat8000v
+        labels:
+          int_down: oper_down
+        isPaused: false

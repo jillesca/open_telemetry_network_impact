@@ -4,6 +4,8 @@ set -eu # Abort the script if a command returns with a non-zero exit code or if
 
 source .env.local
 
+docker rm -f grafana
+
 docker build --file grafana/dockerfile \
         --build-arg GRAFANA_TOKEN=$GRAFANA_TOKEN \
         --build-arg GRAFANA_WEB_HOOK=$GRAFANA_WEB_HOOK \

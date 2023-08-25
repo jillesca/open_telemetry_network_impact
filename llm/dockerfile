@@ -1,4 +1,4 @@
-FROM python:alpine3.18 as base
+FROM python:3.10.11 as base
 
 ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=off \
@@ -8,8 +8,7 @@ ENV PYTHONUNBUFFERED=1 \
 
 COPY llm/requirements.txt .
 
-RUN apk add bash \
-    && pip install -r requirements.txt 
+RUN pip install -r requirements.txt 
 
 WORKDIR /home
 
@@ -24,6 +23,6 @@ ARG LLM_HTTP_LISTEN_PORT
 ENV LLM_API_KEY=${LLM_API_KEY}
 ENV LLM_HTTP_LISTEN_PORT=${LLM_HTTP_LISTEN_PORT}
 
-# COPY langchain .
+# COPY llm/chatbot .
 
-ENTRYPOINT ["python","/home/langchain/app.py"]
+# ENTRYPOINT ["python","/home/chatbot/app.py"]

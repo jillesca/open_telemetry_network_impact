@@ -1,5 +1,5 @@
-flask
-langchain
-chromadb
-openai
-tiktoken
+tiktoken==0.4.0
+chromadb==0.4.6
+langchain==0.0.269
+openai==0.27.8
+Flask==2.3.2

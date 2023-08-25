@@ -4,6 +4,8 @@ set -eu # Abort the script if a command returns with a non-zero exit code or if
 
 source .env.local
 
+docker rm -f telegraf 
+
 docker build \
         --target telegraf \
         --build-arg TELEGRAF_ORG=$TELEGRAF_ORG \

@@ -1,7 +1,7 @@
 import os
 import json
 import logging
-from flask import Flask, request, jsonify, g
+from flask import Flask, request, jsonify
 from llm_bot import LLM_Chatbot
 
 
@@ -12,38 +12,41 @@ except:
 
 logging.basicConfig(filename="flask.log", level=logging.DEBUG)
 
+
 app = Flask(__name__)
 
 chatbot = LLM_Chatbot()
 
 
-def talk_to_chat(data: str) -> dict:
+def chat_to_ai(data: str) -> str:
     return chatbot.chat(data)
 
 
 def process_webhook(data: dict) -> None:
     analyse = ""
-    analyse += json.dumps(data["commonLabels"])
-    analyse += json.dumps(data["title"])
-    analyse += json.dumps(data["state"])
-    analyse += json.dumps(data["message"])
-    analyse += json.dumps(data["commonAnnotations"])
-    print(f"{analyse}=")
-    answer = talk_to_chat(analyse)
-    print(f"LLM answered: {answer['text']}", flush=True)
+    analyse += json.dumps(data.get("commonLabels", ""))
+    analyse += json.dumps(data.get("title", ""))
+    analyse += json.dumps(data.get("state", ""))
+    analyse += json.dumps(data.get("message", ""))
+    analyse += json.dumps(data.get("commonAnnotations", ""))
+    logging.info(analyse)
+    answer = chat_to_ai(json.dumps(analyse))
+    msg = f"LLM answered: {answer}"
+    logging.info(msg)
+    print(msg, flush=True)
 
 
 @app.route("/", methods=["POST"])
 def receive_webhook():
     if request.method == "POST":
-        print(f"{request.json=}")
         data = request.json
+        logging.info(data)
 
-        # Grafana sends empty request to validate the webhook.
+        # Grafana sends empty post to validate the webhook.
         if "firing" in data["status"]:
             process_webhook(data)
 
-        return jsonify(success=False)
+        return jsonify(success=True)
 
 
 if __name__ == "__main__":

@@ -5,6 +5,8 @@ set -eu # Abort the script if a command returns with a non-zero exit code or if
 source .env.local
 source .env
 
+docker rm -f llm 
+
 docker build \
         --target llm \
         --build-arg LLM_API_KEY=$LLM_API_KEY \
@@ -13,7 +15,7 @@ docker build \
         --tag llm:$LLM_TAG .
 
 docker run -itd -p 8080:8080 -p 443:443 --name llm \
-        -v ${PWD}/langchain:/home/langchain/ \
+        -v ${PWD}/llm/chatbot:/home/chatbot/ \
         --add-host host.docker.internal:host-gateway llm:$LLM_TAG
 
 echo "\n################################"

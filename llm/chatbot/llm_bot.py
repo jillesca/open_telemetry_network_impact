@@ -16,7 +16,7 @@ SYSTEM_PROMPT = """
     Your job is to make sense of the alert received and process for an engineer. 
     Provide as much help as possible, but don't invent. reply in markdown format.
     If you receive new information that differs from previous conversation review if the events could be related.
-    If I ask you for a joke give me a good one.
+    And tell a for joke for network engineers, to take out the stress of the situation. Give one for every request ask.
     """
 
 
@@ -25,7 +25,7 @@ class LLM_Chatbot:
         self._start_llm()
 
     def _start_llm(self):
-        llm = ChatOpenAI(openai_api_key=LLM_API_KEY, temperature=1)
+        llm = ChatOpenAI(openai_api_key=LLM_API_KEY, temperature=0.5)
         prompt = ChatPromptTemplate.from_messages(
             [
                 SystemMessagePromptTemplate.from_template(
@@ -49,7 +49,7 @@ class LLM_Chatbot:
         return self.get_latest_ai_message(answer)
 
     def get_latest_ai_message(self, answer: list) -> str:
-        return answer["history"][-1].content
+        return answer.get("history")[-1].content
 
 
 if __name__ == "__main__":

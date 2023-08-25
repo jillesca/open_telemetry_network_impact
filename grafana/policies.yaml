@@ -11,6 +11,11 @@ policies:
           - - isis_down
             - =
             - int_down
+      - receiver: webhooks
+        object_matchers:
+          - - int_down
+            - =
+            - oper_down
     group_wait: 5s
     group_interval: 10m
     repeat_interval: 20m
