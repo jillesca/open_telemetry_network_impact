@@ -1,18 +1,23 @@
 import os
-from langchain.llms import OpenAI
-from langchain.chains import LLMChain
-from langchain.chat_models import ChatOpenAI
-from langchain.memory import ConversationBufferMemory
 from langchain.prompts import (
     ChatPromptTemplate,
     MessagesPlaceholder,
     SystemMessagePromptTemplate,
     HumanMessagePromptTemplate,
 )
+from langchain.chains import ConversationChain
+from langchain.chat_models import ChatOpenAI
+from langchain.memory import ConversationBufferMemory
+from langchain.memory import ConversationSummaryBufferMemory
 
 
 LLM_API_KEY = os.environ["LLM_API_KEY"]
-SYSTEM_PROMPT = "You are chatbot who receives alerts based on telemetry data from network devices. Your job is to make sense of the alert received and process for an engineer. Provide as  much help as possible, but don't invent. reply in markdown format"
+SYSTEM_PROMPT = """
+    You are chatbot who receives alerts based on telemetry data from network devices. 
+    Your job is to make sense of the alert received and process for an engineer. 
+    Provide as much help as possible, but don't invent. reply in markdown format.
+    If you receive new information that differs from previous conversation review if the events could be related
+    """
 
 
 class LLM_Chatbot:
@@ -20,28 +25,32 @@ class LLM_Chatbot:
         self._start_llm()
 
     def _start_llm(self):
-        self.llm = ChatOpenAI(openai_api_key=LLM_API_KEY)
-        self.prompt = ChatPromptTemplate(
-            messages=[
-                SystemMessagePromptTemplate.from_template(SYSTEM_PROMPT),
-                MessagesPlaceholder(variable_name="chat_history"),
-                HumanMessagePromptTemplate.from_template("{question}"),
+        llm = ChatOpenAI(openai_api_key=LLM_API_KEY, temperature=0)
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                SystemMessagePromptTemplate.from_template(
+                    " ".join(SYSTEM_PROMPT.split())
+                ),
+                MessagesPlaceholder(variable_name="history"),
+                HumanMessagePromptTemplate.from_template("{input}"),
             ]
         )
-
-        self.memory = ConversationBufferMemory(
-            memory_key="chat_history", return_messages=True
+        memory = ConversationSummaryBufferMemory(
+            llm=llm, max_token_limit=3000, return_messages=True
         )
-        self.conversation = LLMChain(
-            llm=self.llm, prompt=self.prompt, verbose=True, memory=self.memory
-        )
+        self.conversation = ConversationChain(memory=memory, prompt=prompt, llm=llm)
 
-    def conversations(self, data: str) -> LLMChain:
-        return self.conversation({"question": data})
+    def conversations(self, data: str):
+        return self.conversation({"input": data})
 
 
 if __name__ == "__main__":
     chatbot = LLM_Chatbot()
     chatbot.conversations("tell me a joke about developers")
+    print(chatbot.__dict__)
     chatbot.conversations("now about lawyers")
-    print(chatbot)
+    print(chatbot.__dict__)
+    chatbot.conversations("now make a one, but consider the previous answer")
+    print(chatbot.__dict__)
+    chatbot.conversations("can you do a summary of what we talked about?")
+    print(chatbot.__dict__)
