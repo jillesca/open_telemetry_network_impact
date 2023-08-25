@@ -1,24 +1,21 @@
 apiVersion: 1
 contactPoints:
   - orgId: 1
-    name: AI webhook
+    name: webhooks
     receivers:
-      - uid: ebde907c-216d-46fb-b2f3-650fea652853
-        type: webhook
-        settings:
-          httpMethod: POST
-          message: Issue detected with network telemetry
-          title: Grafana Alert
-          url: http://localhost:8080
-        disableResolveMessage: false
-  - orgId: 1
-    name: webhook notification
-    receivers:
-      - uid: b0ef4d41-46b2-4ef0-9f30-c7bb673e669d
+      - uid: b29cd573-af3b-432b-b465-52a8479add88
         type: webhook
         settings:
           httpMethod: POST
           message: Issue detected with network telemetry
           title: Grafana Alert
           url: https://webhook.site/35e63cda-f265-48be-a918-7713bf06586b
+        disableResolveMessage: false
+      - uid: bd8139a5-44e1-4db1-b114-8fc9e1e25c23
+        type: webhook
+        settings:
+          httpMethod: POST
+          message: Issue detected with network telemetry
+          title: Grafana Alert
+          url: http://host.docker.internal:8080
         disableResolveMessage: false
