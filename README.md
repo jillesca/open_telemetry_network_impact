@@ -8,7 +8,20 @@ This lab doesn't use the default topology from the sandbox. Go to CML <https://1
 
 **hint** you can load the topology using ansible, see the bonus part at the end of the readme.
 
-## Start containers on your laptop
+## Goal
+
+This an exercise to play with AI, specifically OpenAI. The end goal is to get help from AI understanding alarms and giving steps we could do to fix the issue.
+
+These alarms are triggered by Grafana using webhooks. The network data is collected using telemetry data via netconf.
+
+Two alarms were created for this demo
+
+- If less than two `ISIS` interfaces are `UP` per device.
+- If one interface goes down on any device.
+
+## Prepare Demo
+
+### Start containers on your laptop
 
 ```bash
 chmod +x build_run_grafana.sh
@@ -20,7 +33,7 @@ bash build_run_influxdb.sh
 bash build_run_telegraf.sh
 ```
 
-## Start the chatbot
+### Start the chatbot
 
 Install the dependencies needed.
 
@@ -39,19 +52,14 @@ cd llm/chatbot
 python app.py
 ```
 
-## Verify telemetry on IOS-XE
+### Verify telemetry on IOS-XE
 
 Devices used (cisco/cisco):
 
 - 10.10.20.175
 - 10.10.20.176
 
-```
-show telemetry ietf subscription 1010 receiver
-show telemetry ietf subscription 1010 detail
-```
-
-## Verify telemetry on Telegraf, Influxdb, Grafana
+### Verify telemetry on Telegraf, Influxdb, Grafana
 
 - telegraf - [tail -F /tmp/telegraf-grpc.log](telegraf/dockerfile#30)
 - Grafana - <http://localhost:3000>
