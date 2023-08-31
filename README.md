@@ -82,7 +82,7 @@ You will see a drop in the grafana dashboard for these metrics, soon after the a
 
 After a few seconds the AI will notify you about what happened, suggest some actions and tell you a joke to relax a bit.
 
-## User your own devices
+## Use your own devices
 
 If you want to use your own devices, you only need to tell the [netconf client](netconf_client) which devices it has to query and their credentials.
 
