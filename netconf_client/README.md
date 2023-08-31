@@ -8,6 +8,33 @@ To use it, install the dependencies needed
 pip install -r requirements.txt
 ```
 
+## Usage
+
+```bash
+╰─ python main.py -h
+usage: main.py [-h] [--device_settings DEVICE_SETTINGS] (--xml_filter XML_FILTER | --xpath_filter XPATH_FILTER)
+
+options:
+  -h, --help            show this help message and exit
+  --device_settings DEVICE_SETTINGS
+                        Device Settings in json fomat. Eg. 'netconf_devices_settings.json'
+  --xml_filter XML_FILTER
+                        Netconf Filter to apply in xml format. Eg. 'cisco_xe_ietf-interfaces.xml'
+  --xpath_filter XPATH_FILTER
+                        Netconf Filter to apply in xpath. Formats: <xpath> OR <namespace>:<xpath> Eg. 'interfaces/interface' OR 'http://cisco.com/ns/yang/Cisco-IOS-XE-interfaces-oper:interfaces/interface' xpath is used as
+                        ID internally.
+```
+
+For example
+
+```bash
+python main.py --device_settings=cat8000v-1_settings.json --xml_filter=Cisco-IOS-XE-memory-oper.xml
+
+python3 main.py --device_settings=cat8000v-0_settings.json --xpath_filter=http://cisco.com/ns/yang/Cisco-IOS-XE-isis-oper:/isis-oper-data/isis-instance
+```
+
+Once the script finishes, it will print the result. This is enough for working with telegraf as an exec plugin, but might not be for your use case.
+
 ## Operations
 
 Currently only uses the [GET operation](netconf_session.py#13) to retrieve data.
@@ -45,33 +72,6 @@ For example:
 ```
 
 The `xpath` filter is used as [ID internally](factory.py#21).
-
-## Usage
-
-```bash
-╰─ python main.py -h
-usage: main.py [-h] [--device_settings DEVICE_SETTINGS] (--xml_filter XML_FILTER | --xpath_filter XPATH_FILTER)
-
-options:
-  -h, --help            show this help message and exit
-  --device_settings DEVICE_SETTINGS
-                        Device Settings in json fomat. Eg. 'netconf_devices_settings.json'
-  --xml_filter XML_FILTER
-                        Netconf Filter to apply in xml format. Eg. 'cisco_xe_ietf-interfaces.xml'
-  --xpath_filter XPATH_FILTER
-                        Netconf Filter to apply in xpath. Formats: <xpath> OR <namespace>:<xpath> Eg. 'interfaces/interface' OR 'http://cisco.com/ns/yang/Cisco-IOS-XE-interfaces-oper:interfaces/interface' xpath is used as
-                        ID internally.
-```
-
-For example
-
-```bash
-python main.py --device_settings=cat8000v-1_settings.json --xml_filter=Cisco-IOS-XE-memory-oper.xml
-
-python3 main.py --device_settings=cat8000v-0_settings.json --xpath_filter=http://cisco.com/ns/yang/Cisco-IOS-XE-isis-oper:/isis-oper-data/isis-instance
-```
-
-Once the script finishes, it will print the result. This is enough for working with telegraf as an exec plugin, but might not be for your use case.
 
 ## Netconf Filters
 
