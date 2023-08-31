@@ -10,10 +10,6 @@ Then load the [cml topology](ansible/cml_lab/topology.yaml) prepared for this la
 
 **hint** you can load the topology using ansible, see the bonus part at the end of the readme.
 
-# Setup NSO
-
-[See NSO Setup](nso/README.md)
-
 # Start containers on Devbox VM
 
 ```bash
