@@ -8,11 +8,45 @@ To use it, install the dependencies needed
 pip install -r requirements.txt
 ```
 
-## Usage
+## Operations
 
 Currently only uses the [GET operation](netconf_session.py#13) to retrieve data.
 
-It support two methods to retrieve data, using an `xml` file filter or using an `xpath` expression. Only one can be used when performing an action. If you want to use both filters, simply call the device twice using different filter.
+## Ways to retrieve data
+
+Relative and absolute paths are supported to define device or filters files.
+
+### Define your devices
+
+Under the [devices directory](devices) create a json file. Follow the structure defined of the existing files. **Don't add or remove fields,** these are used to [build a netconf_device object](netconf_devices.py)
+
+### xml filter
+
+You need to specify an `xml` file with the filter you want to use and the `--xml_filter` option when calling the script.
+
+For example:
+
+- `--xml_filter=cisco_xe_ietf-interfaces.xml`
+
+The script supports relative and absolute paths.
+
+### xpath
+
+`xpath` can be use with the following formats:
+
+- `--xpath_filter=<xpath>`
+- `--xpath_filter=<namespace>:<xpath>`
+
+For example:
+
+```bash
+--xpath_filter=interfaces/interface
+--xpath_filter=http://cisco.com/ns/yang/Cisco-IOS-XE-interfaces-oper:interfaces/interface
+```
+
+The `xpath` filter is used as [ID internally](factory.py#21).
+
+## Usage
 
 ```bash
 ╰─ python main.py -h
@@ -60,3 +94,5 @@ If you want to add your own parser. You need to:
 - Create a parser under [the parsers directory](parsers)
   - You parser must implement the `Parser` class. See an [existing parser for an example](parsers/cisco_ios_xe_memory_oper.py#8)
 - Add your new parser to [the factory file](factory.py#5) under the match statement.
+  - If using a `xml` file, use the file name as ID, including the `.xml` extension.
+  - If using `xpath`, use the whole xpath expression.
