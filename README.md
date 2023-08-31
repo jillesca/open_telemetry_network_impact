@@ -10,7 +10,7 @@ This an exercise to play with AI, specifically OpenAI. The end goal is to get he
 
 These alarms are triggered by Grafana using webhooks. The network data is collected using telemetry data via netconf.
 
-Two alarms were created for this demo
+Two alarms [were created for this demo](grafana/alerts.yaml)
 
 - If less than two `ISIS` interfaces are `UP` per device.
 - If one interface goes down on any device.
