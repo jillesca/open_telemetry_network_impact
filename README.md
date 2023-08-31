@@ -23,7 +23,7 @@ This lab doesn't use the default topology from the sandbox. Go to CML <https://1
 
 Either manually stop and wipe the existing lab and then import the [cml topology.](cml/ansible/cml_lab/topology.yaml)
 
-Or run the cml container. _If using the first time, it will take like 5min to be ready. Manual option could be faster._
+Or run the cml container. _If first time, it will take around 5min to be ready. Manual option could be faster._
 
 ```bash
 chmod +x build_run_cml.sh
@@ -61,6 +61,8 @@ Add your OpenAI key as environment variable.
 export LLM_API_KEY=your_open_ai_key
 ```
 
+Start the chatbot, keep this terminal open, here you will see the AI notification.
+
 ```bash
 cd llm/chatbot
 python app.py
@@ -71,6 +73,14 @@ python app.py
 - telegraf - [tail -F /tmp/telegraf-grpc.log](telegraf/dockerfile#30)
 - Grafana - <http://localhost:3000>
 - Influxdb - <http://localhost:8086>
+
+## Test the Demo
+
+Once grafana starts receiving telemtry data in its dashboards, Go to any XE device and shutdown either G2 or G4 since these interfaces are ISIS enabled.
+
+You will see a drop in the grafana dashboard for these metrics, soon after the alarms will be fired and you will recieve a webook on the chatbot.
+
+After a few seconds the AI will notify you about what happened, suggest some actions and tell you a joke to relax a bit.
 
 ## User your own devices
 
