@@ -4,23 +4,23 @@ This demo uses the CML sandbox, but technically any IOS-XE device with two ISIS 
 
 Go to [Cisco Modeling Labs](https://developer.cisco.com/site/sandbox/) and reserve a lab. **Clone this repo to the devbox VM - 10.10.20.50 developer/C1sco12345**
 
-This lab doesn't use the default topology from the sandbox. Go to CML <https://10.10.20.161> (developer/C1sco12345) **stop** and **wipe** the default topology to avoid IP conflicts. Then load the [cml topology](ansible/cml_lab/topology.yaml) prepared for this lab.
+This lab doesn't use the default topology from the sandbox. Go to CML <https://10.10.20.161> (developer/C1sco12345) **stop** and **wipe** the default topology to avoid IP conflicts. Then load the [cml topology](cml/ansible/cml_lab/topology.yaml) prepared for this lab.
 
 **hint** you can load the topology using ansible, see the bonus part at the end of the readme.
 
-# Start containers on your laptop
+## Start containers on your laptop
 
 ```bash
 chmod +x build_run_grafana.sh
 chmod +x build_run_influxdb.sh
 chmod +x build_run_telegraf.sh
 
-./build_run_grafana.sh
-./build_run_influxdb.sh
-./build_run_telegraf.sh
+bash build_run_grafana.sh
+bash build_run_influxdb.sh
+bash build_run_telegraf.sh
 ```
 
-# Start the chatbot
+## Start the chatbot
 
 Install the dependencies needed.
 
@@ -39,7 +39,7 @@ cd llm/chatbot
 python app.py
 ```
 
-# Verify telemetry on IOS-XE
+## Verify telemetry on IOS-XE
 
 Devices used (cisco/cisco):
 
@@ -51,25 +51,35 @@ show telemetry ietf subscription 1010 receiver
 show telemetry ietf subscription 1010 detail
 ```
 
-# Verify telemetry on Telegraf, Influxdb, Grafana
+## Verify telemetry on Telegraf, Influxdb, Grafana
 
 - telegraf - [tail -F /tmp/telegraf-grpc.log](telegraf/dockerfile#30)
 - Grafana - <http://localhost:3000>
 - Influxdb - <http://localhost:8086>
 
-# Bonus: Create the lab using Ansible from your laptop
+## User your own devices
+
+If you want to use your own devices, you only need to tell the [netconf client](netconf_client) which devices it has to query and their credentials.
+
+To add your devices [create a configuration file under the devices directory.](netconf_client/devices/) Follow the structure of the existing files.
+
+Then you need to tell telegraf, which configuration file it should use under [netconf.conf file](telegraf/netconf.conf#2)
+
+Rebuild the container using `bash build_run_telegraf.sh`
+
+## Bonus: Create the lab using Ansible from your laptop
 
 ```bash
 chmod +x build_run_cml.sh
-./build_run_cml.sh
+bash build_run_cml.sh
 ```
 
-# Links that helped to build the lab
+## Links that helped to build the lab
 
 - <https://github.com/jeremycohoe/cisco-ios-xe-mdt/tree/master>
 - <https://anirudhkamath.github.io/network-automation-blog/notes/network-telemetry-using-netconf-telegraf-prometheus.html>
 
-# Find which subscriptions could be on-change
+## Find which subscriptions could be on-change
 
 Use `show platform software ndbman ...` and autocomplete for your device.
 
