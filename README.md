@@ -1,16 +1,14 @@
 # Open Telemetry Network
 
+This demo uses the CML sandbox, but technically any IOS-XE device with two ISIS interfaces will work.
+
 Go to [Cisco Modeling Labs](https://developer.cisco.com/site/sandbox/) and reserve a lab. **Clone this repo to the devbox VM - 10.10.20.50 developer/C1sco12345**
 
-This lab doesn't use the default topology from the NSO sandbox.
-
-Go to CML <https://10.10.20.161> (developer/C1sco12345) **stop** and **wipe** the default topology to avoid IP conflicts.
-
-Then load the [cml topology](ansible/cml_lab/topology.yaml) prepared for this lab.
+This lab doesn't use the default topology from the sandbox. Go to CML <https://10.10.20.161> (developer/C1sco12345) **stop** and **wipe** the default topology to avoid IP conflicts. Then load the [cml topology](ansible/cml_lab/topology.yaml) prepared for this lab.
 
 **hint** you can load the topology using ansible, see the bonus part at the end of the readme.
 
-# Start containers on Devbox VM
+# Start containers on your laptop
 
 ```bash
 chmod +x build_run_grafana.sh
@@ -22,7 +20,31 @@ chmod +x build_run_telegraf.sh
 ./build_run_telegraf.sh
 ```
 
+# Start the chatbot
+
+Install the dependencies needed.
+
+```bash
+pip install -r llm/requirements.txt
+```
+
+Add your OpenAI key as environment variable.
+
+```bash
+export LLM_API_KEY=your_open_ai_key
+```
+
+```bash
+cd llm/chatbot
+python app.py
+```
+
 # Verify telemetry on IOS-XE
+
+Devices used (cisco/cisco):
+
+- 10.10.20.175
+- 10.10.20.176
 
 ```
 show telemetry ietf subscription 1010 receiver
@@ -35,35 +57,11 @@ show telemetry ietf subscription 1010 detail
 - Grafana - <http://localhost:3000>
 - Influxdb - <http://localhost:8086>
 
-# Bonus: Create the lab using Ansible
-
-Start ansible container
+# Bonus: Create the lab using Ansible from your laptop
 
 ```bash
 chmod +x build_run_cml.sh
 ./build_run_cml.sh
-```
-
-Enter the container first
-
-```bash
-docker exec -it cml /bin/sh
-```
-
-## Delete default lab
-
-Update the name if different.
-
-```bash
-cd ansible
-ansible-playbook cisco.cml.clean -e cml_lab="'Small NXOS/IOSXE Network'"
-
-```
-
-## Create a lab
-
-```bash
-ansible-playbook cisco.cml.build -e startup='host' -e wait='yes'
 ```
 
 # Links that helped to build the lab

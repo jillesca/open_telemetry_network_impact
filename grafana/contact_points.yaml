@@ -9,7 +9,7 @@ contactPoints:
           httpMethod: POST
           message: Issue detected with network telemetry
           title: Grafana Alert
-          url: https://webhook.site/35e63cda-f265-48be-a918-7713bf06586b
+          url: $GRAFANA_WEB_HOOK
         disableResolveMessage: false
       - uid: bd8139a5-44e1-4db1-b114-8fc9e1e25c23
         type: webhook
