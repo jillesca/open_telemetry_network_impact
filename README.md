@@ -71,8 +71,8 @@ python app.py
 ### Verify telemetry on Telegraf, Influxdb, Grafana
 
 - telegraf - [tail -F /tmp/telegraf-grpc.log](telegraf/dockerfile#30)
-- Grafana - <http://localhost:3000>
-- Influxdb - <http://localhost:8086>
+- Grafana - <http://localhost:3000> admin/admin
+- Influxdb - <http://localhost:8086> admin/admin123
 
 ## Test the Demo
 
