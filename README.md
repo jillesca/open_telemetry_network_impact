@@ -4,10 +4,6 @@ This demo uses the CML sandbox, but technically any IOS-XE device with two ISIS 
 
 Go to [Cisco Modeling Labs](https://developer.cisco.com/site/sandbox/) and reserve a lab. **Clone this repo to the devbox VM - 10.10.20.50 developer/C1sco12345**
 
-This lab doesn't use the default topology from the sandbox. Go to CML <https://10.10.20.161> (developer/C1sco12345) **stop** and **wipe** the default topology to avoid IP conflicts. Then load the [cml topology](cml/ansible/cml_lab/topology.yaml) prepared for this lab.
-
-**hint** you can load the topology using ansible, see the bonus part at the end of the readme.
-
 ## Goal
 
 This an exercise to play with AI, specifically OpenAI. The end goal is to get help from AI understanding alarms and giving steps we could do to fix the issue.
@@ -20,6 +16,24 @@ Two alarms were created for this demo
 - If one interface goes down on any device.
 
 ## Prepare Demo
+
+### Start the topology
+
+This lab doesn't use the default topology from the sandbox. Go to CML <https://10.10.20.161> (developer/C1sco12345)
+
+Either manually stop and wipe the existing lab and then import the [cml topology.](cml/ansible/cml_lab/topology.yaml)
+
+Or run the cml container. _If using the first time, it will take like 5min to be ready. Manual option could be faster._
+
+```bash
+chmod +x build_run_cml.sh
+bash build_run_cml.sh
+```
+
+Devices used (cisco/cisco):
+
+- 10.10.20.175
+- 10.10.20.176
 
 ### Start containers on your laptop
 
@@ -52,13 +66,6 @@ cd llm/chatbot
 python app.py
 ```
 
-### Verify telemetry on IOS-XE
-
-Devices used (cisco/cisco):
-
-- 10.10.20.175
-- 10.10.20.176
-
 ### Verify telemetry on Telegraf, Influxdb, Grafana
 
 - telegraf - [tail -F /tmp/telegraf-grpc.log](telegraf/dockerfile#30)
@@ -75,12 +82,15 @@ Then you need to tell telegraf, which configuration file it should use under [ne
 
 Rebuild the container using `bash build_run_telegraf.sh`
 
-## Bonus: Create the lab using Ansible from your laptop
+## Troubleshooting
 
-```bash
-chmod +x build_run_cml.sh
-bash build_run_cml.sh
-```
+Sometimes the CML lab is not reachable from your laptop. When this happens usually is a connectivity issue between the devices and the bridge of CML.
+
+- One way to fix this issue is to flap several times the management interface (G1) of the devices.
+- Ping from the devices to their Gateway (10.10.20.255)
+- Go to the DevBox 10.10.20.50 developer/C1sco12345 and ping the managment interface of the devices
+
+Usually after around 5 minutes the connectivity starts to work.
 
 ## Links that helped to build the lab
 
