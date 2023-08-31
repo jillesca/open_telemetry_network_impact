@@ -1,6 +1,6 @@
 # Open Telemetry Network
 
-Go to [NSO 6 Reservable Sandbox](https://developer.cisco.com/site/sandbox/) and reserve a lab. **Clone this repo to the devbox VM - 10.10.20.50 developer/C1sco12345**
+Go to [Cisco Modeling Labs](https://developer.cisco.com/site/sandbox/) and reserve a lab. **Clone this repo to the devbox VM - 10.10.20.50 developer/C1sco12345**
 
 This lab doesn't use the default topology from the NSO sandbox.
 
@@ -32,8 +32,8 @@ show telemetry ietf subscription 1010 detail
 # Verify telemetry on Telegraf, Influxdb, Grafana
 
 - telegraf - [tail -F /tmp/telegraf-grpc.log](telegraf/dockerfile#30)
-- Grafana - <http://10.10.20.50:3000>
-- Influxdb - <http://10.10.20.50:8086>
+- Grafana - <http://localhost:3000>
+- Influxdb - <http://localhost:8086>
 
 # Bonus: Create the lab using Ansible
 
@@ -51,6 +51,8 @@ docker exec -it cml /bin/sh
 ```
 
 ## Delete default lab
+
+Update the name if different.
 
 ```bash
 cd ansible
