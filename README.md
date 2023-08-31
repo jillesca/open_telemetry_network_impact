@@ -19,9 +19,9 @@ Two alarms [were created for this demo](grafana/alerts.yaml)
 
 ### Start the topology
 
-This lab doesn't use the default topology from the sandbox. Go to CML <https://10.10.20.161> (developer/C1sco12345)
+This lab doesn't use the default topology from the sandbox. We need to remove such lab to avoid IP conflicts.
 
-Either manually stop and wipe the existing lab and then import the [cml topology.](cml/ansible/cml_lab/topology.yaml)
+Either manually stop and wipe the existing lab and then import the [cml topology.](cml/ansible/cml_lab/topology.yaml) Go to CML <https://10.10.20.161> (developer/C1sco12345)
 
 Or run the cml container. _If first time, it will take around 5min to be ready. Manual option could be faster._
 
