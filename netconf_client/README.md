@@ -55,7 +55,7 @@ For example:
 
 - `--xml_filter=cisco_xe_ietf-interfaces.xml`
 
-The script supports relative and absolute paths.
+The script supports relative and absolute paths. Default directory is [the filter directory](filters), place your `xml` files there if you don't want to deal with absolute or relative paths.
 
 ### xpath
 
@@ -90,7 +90,6 @@ The python code that parses the RPC reply is found under [the parsers directory]
 
 If you want to add your own parser. You need to:
 
-- If using an `xml filter` add your `xml` file under [the filter directory](filters)
 - Create a parser under [the parsers directory](parsers)
   - You parser must implement the `Parser` class. See an [existing parser for an example](parsers/cisco_ios_xe_memory_oper.py#8)
 - Add your new parser to [the factory file](factory.py#5) under the match statement.
