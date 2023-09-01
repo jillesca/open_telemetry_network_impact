@@ -40,17 +40,17 @@ Devices used (cisco/cisco):
 First time give executable permissions.
 
 ```bash
-chmod +x build_run_grafana.sh
-chmod +x build_run_influxdb.sh
 chmod +x build_run_telegraf.sh
+chmod +x build_run_influxdb.sh
+chmod +x build_run_grafana.sh
 ```
 
 Start the containers.
 
 ```bash
-bash build_run_grafana.sh
-bash build_run_influxdb.sh
 bash build_run_telegraf.sh
+bash build_run_influxdb.sh
+bash build_run_grafana.sh
 ```
 
 > Grafana takes a few seconds to be ready.
@@ -64,6 +64,8 @@ pip install -r llm/requirements.txt
 ```
 
 Add your OpenAI key as environment variable.
+
+If you don't have a key, go to <https://platform.openai.com/account/api-keys>
 
 ```bash
 export LLM_API_KEY=your_open_ai_key
@@ -85,15 +87,57 @@ python app.py
 
 ## Test the Demo
 
-Once grafana starts receiving telemetry data in its dashboards, Go to any XE device and shutdown either G2 or G4 since these interfaces are ISIS enabled.
+Start by shutting down an ISIS interface in any cat8000v, in this case `GigabitEthernet 2`
 
-You will see a drop in the grafana dashboard for these metrics, soon after the alarms will be fired and you will receive a webook on the chatbot.
+![shutdown G2](img/cat8kv_interface_shutdown.png)
 
-- Grafana
-  - <http://localhost:3000/dashboards> General > Network Telemetry
-  - <http://localhost:3000/alerting/list>
+You will see a drop in the grafana dashboard for these metrics, and the alarms will be fired and you will receive a webook on the chatbot.
 
-After a few seconds the AI will notify you about what happened, suggest some actions and tell you a joke to relax a bit.
+<http://localhost:3000/dashboards> General > Network Telemetry
+
+![grafana dashboard](img/grafana_dashboard_alerted.png)
+
+<http://localhost:3000/alerting/list>
+
+![grafana alerts](img/grafana_alerts_firing.png)
+
+After a few seconds the AI will receive a webhook, will analyse it and notify you about what happened. Suggesting some actions and tell you a joke to relax a bit.
+
+Currently, it will process every webhook receive and will try to see if the alarms can be related.
+
+#### LLM Analysis Perform
+
+Below is an example of one of the outputs performed by the AI.
+
+    LLM answered: **Alert:** ISIS interfaces count for cat8000v-1
+    **Device:** cat8000v-1
+    **Grafana Folder:** isis_int_count
+    **Host:** telegraf
+    **Interface Name:** GigabitEthernet4
+    **IP:** 10.10.20.175
+    **IPv4 Address:** 10.2.2.2
+    **ISIS Down:** int_down
+    **ISIS Status:** isis-adj-up
+    **Neighbor ID:** 00:00:00:00:00:0b
+    **Summary:** ISIS interfaces below expected number for cat8000v-1. There should be 2 ISIS interfaces in isis-adj-up state.
+
+    Thank you for providing the additional information. It appears that we have another issue with the ISIS interfaces, this time on the device cat8000v-1. The expected number of ISIS interfaces in the isis-adj-up state is 2, but the current count is below this expected number.
+
+    To troubleshoot this issue, we can start by checking the configuration of the device and verifying if all the necessary ISIS interfaces are properly configured. Additionally, we should also investigate if there are any errors or issues reported on the GigabitEthernet4 interface.
+
+    Here are the details of the affected device and interface:
+
+    | Device Name | IP Address   | Interface        |
+    | ----------- | ------------ | ---------------- |
+    | cat8000v-1  | 10.10.20.175 | GigabitEthernet4 |
+
+    Please review the configuration and status of the ISIS interfaces on cat8000v-1, and check for any errors or issues on the GigabitEthernet4 interface. If you need further assistance, please let us know.
+
+    And now, here's another joke for network engineers:
+
+    Why was the network engineer always calm?
+
+    Because they had excellent network latency!
 
 ## Use your own devices
 
@@ -120,6 +164,8 @@ Sometimes the CML lab is not reachable from your laptop. When this happens usual
 - Go to the DevBox 10.10.20.50 developer/C1sco12345 and ping the managment interface of the devices
 
 Usually after around 5 minutes the connectivity starts to work.
+
+In more drastic cases, restart the cat8kv from the CML GUI.
 
 ## Links that helped to build the lab
 
