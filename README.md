@@ -2,7 +2,7 @@
 
 This demo uses the CML sandbox, but technically any IOS-XE device with two ISIS interfaces will work.
 
-Go to [Cisco Modeling Labs](https://developer.cisco.com/site/sandbox/) and reserve a lab. **Clone this repo to the devbox VM - 10.10.20.50 developer/C1sco12345**
+Go to [the Devnet sandbox](https://developer.cisco.com/site/sandbox/) and reserve a CML lab.
 
 ## Goal
 
@@ -37,15 +37,23 @@ Devices used (cisco/cisco):
 
 ### Start containers on your laptop
 
+First time give executable permissions.
+
 ```bash
 chmod +x build_run_grafana.sh
 chmod +x build_run_influxdb.sh
 chmod +x build_run_telegraf.sh
+```
 
+Start the containers.
+
+```bash
 bash build_run_grafana.sh
 bash build_run_influxdb.sh
 bash build_run_telegraf.sh
 ```
+
+> Grafana takes a few seconds to be ready.
 
 ### Start the chatbot
 
@@ -71,14 +79,19 @@ python app.py
 ### Verify telemetry on Telegraf, Influxdb, Grafana
 
 - telegraf - [tail -F /tmp/telegraf-grpc.log](telegraf/dockerfile#30)
-- Grafana - <http://localhost:3000> admin/admin
 - Influxdb - <http://localhost:8086> admin/admin123
+- Grafana - <http://localhost:3000/dashboards> admin/admin
+  - General > Network Telemetry
 
 ## Test the Demo
 
-Once grafana starts receiving telemtry data in its dashboards, Go to any XE device and shutdown either G2 or G4 since these interfaces are ISIS enabled.
+Once grafana starts receiving telemetry data in its dashboards, Go to any XE device and shutdown either G2 or G4 since these interfaces are ISIS enabled.
 
-You will see a drop in the grafana dashboard for these metrics, soon after the alarms will be fired and you will recieve a webook on the chatbot.
+You will see a drop in the grafana dashboard for these metrics, soon after the alarms will be fired and you will receive a webook on the chatbot.
+
+- Grafana
+  - <http://localhost:3000/dashboards> General > Network Telemetry
+  - <http://localhost:3000/alerting/list>
 
 After a few seconds the AI will notify you about what happened, suggest some actions and tell you a joke to relax a bit.
 
@@ -91,6 +104,12 @@ To add your devices [create a configuration file under the devices directory.](n
 Then you need to tell telegraf, which configuration file it should use under [netconf.conf file](telegraf/netconf.conf#2)
 
 Rebuild the container using `bash build_run_telegraf.sh`
+
+## .env.local file
+
+The [.env.local file](.env.local) is used to define all variables used by the containers.
+
+On a real implementation you will keep this file out of git using the `.gitignore` file, but since this is a demo, is used to provide everything you need to run the demo, except the `LLM Key.`
 
 ## Troubleshooting
 
