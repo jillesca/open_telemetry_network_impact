@@ -1,22 +1,17 @@
 # syntax=docker/dockerfile:1
-# FROM python:alpine3.16 AS base
-# COPY ./cml/requirements.txt .
-# RUN apk add \
-#     gcc \
-#     musl-dev \
-#     linux-headers \
-#     libssh-dev \
-#     openssh-client \
-#     && pip install --upgrade pip \
-#     && pip3 install -r requirements.txt \
-#     && pip install virl2-client==2.5.0 \
-#     && ansible-galaxy collection install cisco.cml
-# WORKDIR /home
-
-FROM jillesca/ansible:cml1.1 as base
-
-RUN pip install virl2-client==2.5.0 \
+FROM python:alpine3.16 AS base
+COPY ./cml/requirements.txt .
+RUN apk add \
+    gcc \
+    bash \
+    musl-dev \
+    libssh-dev \
+    linux-headers \
+    openssh-client \
+    && pip install --upgrade pip \
+    && pip install -r requirements.txt \
     && ansible-galaxy collection install cisco.cml
+WORKDIR /home
 
 
 FROM base as cml

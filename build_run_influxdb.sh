@@ -18,7 +18,7 @@ docker build \
 
 docker run -itd -p 8086:8086 --volume influxdb:/var/lib/influxdb2 --name influxdb --add-host host.docker.internal:host-gateway influxdb:$INFLUXDB_TAG 
 
-echo "\n################################"
+echo "################################"
 echo "To access the container use:"
 echo "docker exec -it influxdb bash"
-echo "################################\n"
+echo "################################"

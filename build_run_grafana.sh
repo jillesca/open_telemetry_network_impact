@@ -13,7 +13,7 @@ docker build --file grafana/dockerfile \
 
 docker run -itd -p 3000:3000 --name grafana --add-host host.docker.internal:host-gateway grafana:$GRAFANA_TAG 
 
-echo "\n################################"
+echo "################################"
 echo "To access the container use:"
 echo "docker exec -it grafana bash"
-echo "################################\n"
+echo "################################"

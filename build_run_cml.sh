@@ -28,7 +28,7 @@ docker exec -it cml ansible-playbook cisco.cml.build -e startup='host' -e wait='
 
 
 
-echo "\n################################"
+echo "################################"
 echo "To access the container use:"
-echo "docker exec -it cml /bin/sh"
-echo "################################\n"
+echo "docker exec -it cml /bin/bash"
+echo "################################"

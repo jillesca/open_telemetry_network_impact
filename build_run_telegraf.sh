@@ -18,7 +18,7 @@ docker run -itd -p 57500:57500 --name telegraf \
         --add-host host.docker.internal:host-gateway telegraf:$TELEGRAF_TAG
         # -v ${PWD}/netconf_client:/opt/netconf_client/ \
 
-echo "\n################################"
+echo "################################"
 echo "To access the container use:"
 echo "docker exec -it telegraf bash"
-echo "################################\n"
+echo "################################"
