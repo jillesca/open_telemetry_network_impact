@@ -37,7 +37,7 @@ Once the script finishes, it will print the result. This is enough for working w
 
 ## Operations
 
-Currently only uses the [GET operation](netconf_session.py#13) to retrieve data.
+Currently only uses the [GET operation](netconf_session.py#L13) to retrieve data.
 
 ## Ways to retrieve data
 
@@ -71,7 +71,7 @@ For example:
 --xpath_filter=http://cisco.com/ns/yang/Cisco-IOS-XE-interfaces-oper:interfaces/interface
 ```
 
-The `xpath` filter is used as [ID internally](factory.py#21).
+The `xpath` filter is used as [ID internally](factory.py#L21).
 
 ## Netconf Filters
 
@@ -91,7 +91,7 @@ The python code that parses the RPC reply is found under [the parsers directory]
 If you want to add your own parser. You need to:
 
 - Create a parser under [the parsers directory](parsers)
-  - You parser must implement the `Parser` class. See an [existing parser for an example](parsers/cisco_ios_xe_memory_oper.py#8)
-- Add your new parser to [the factory file](factory.py#5) under the match statement.
+  - You parser must implement the `Parser` class. See an [existing parser for an example](parsers/cisco_ios_xe_memory_oper.py#L8)
+- Add your new parser to [the factory file](factory.py#L5) under the match statement.
   - If using a `xml` file, use the file name as ID, including the `.xml` extension.
   - If using `xpath`, use the whole xpath expression.

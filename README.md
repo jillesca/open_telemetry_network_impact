@@ -25,7 +25,7 @@ Either manually stop and wipe the existing lab and then import the [cml topology
 
 Or run the cml container. _If first time, it will take around 5min to be ready. Manual option could be faster._
 
-> The cml container assumes the default lab is called '_Multi Platform Network_' in cml. If this is not the case, update the [build_run_cml.sh script with the corresponding name](build_run_cml.sh#24)
+> The cml container assumes the default lab is called '_Multi Platform Network_' in cml. If this is not the case, update the [build_run_cml.sh script with the corresponding name](build_run_cml.sh#L24)
 
 ```bash
 chmod +x build_run_cml.sh
@@ -82,7 +82,7 @@ python app.py
 
 ### Verify telemetry on Telegraf, Influxdb, Grafana
 
-- telegraf - [tail -F /tmp/telegraf-grpc.log](telegraf/dockerfile#30)
+- telegraf - `docker exec -it telegraf bash` > [tail -F /tmp/telegraf-grpc.log](telegraf/dockerfile#L30)
 - Influxdb - <http://localhost:8086> admin/admin123
 - Grafana - <http://localhost:3000/dashboards> admin/admin
   - General > Network Telemetry
@@ -147,7 +147,7 @@ If you want to use your own devices, you only need to tell the [netconf client](
 
 To add your devices [create a configuration file under the devices directory.](netconf_client/devices/) Follow the structure of the existing files.
 
-Then you need to tell telegraf, which configuration file it should use under [netconf.conf file](telegraf/netconf.conf#2)
+Then you need to tell telegraf, which configuration file it should use under [netconf.conf file](telegraf/netconf.conf#L2)
 
 Rebuild the container using `bash build_run_telegraf.sh`
 
