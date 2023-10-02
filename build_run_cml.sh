@@ -21,12 +21,12 @@ docker build \
 docker run -itd --name cml cml:$CML_TAG
 
 echo "Removing default CML lab"
+# Some sandboxes use different default topologies.
 docker exec -it cml ansible-playbook cisco.cml.clean -e cml_lab="'Multi Platform Network'"
+docker exec -it cml ansible-playbook cisco.cml.clean -e cml_lab="'Small NXOS/IOSXE Network'"
 
 echo "Creating telemetry lab"
 docker exec -it cml ansible-playbook cisco.cml.build -e startup='host' -e wait='yes' -e cml_host=$CML_HOST -e cml_username=$CML_USERNAME -e cml_password=$CML_PASSWORD -e cml_lab=$CML_LAB -e cml_lab_file=$CML_LAB_FILE
-
-
 
 echo "################################"
 echo "To access the container use:"
