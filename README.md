@@ -4,6 +4,9 @@ This demo uses the CML sandbox, but technically any IOS-XE device with two ISIS 
 
 Go to [the Devnet sandbox](https://developer.cisco.com/site/sandbox/) and reserve a CML lab.
 
+> [!NOTE]
+> I created a second iteration of this exercise, See [CLEUR-DEVNET-3707](https://github.com/jillesca/CLEUR-DEVNET-3707) It includes webex as front-end, slides and a session recording.
+
 ## Goal
 
 This an exercise to play with AI, specifically OpenAI. The end goal is to get help from AI understanding alarms and giving steps we could do to fix the issue.
