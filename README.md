@@ -1,8 +1,13 @@
 # Open Telemetry Network
 
+[![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/jillesca/open_telemetry_network_impact)
+
 This demo uses the CML sandbox, but technically any IOS-XE device with two ISIS interfaces will work.
 
 Go to [the Devnet sandbox](https://developer.cisco.com/site/sandbox/) and reserve a CML lab.
+
+> [!NOTE]
+> I created a second iteration of this exercise, see [CLEUR-DEVNET-3707](https://github.com/jillesca/CLEUR-DEVNET-3707) It includes webex as front-end, slides and a session recording.
 
 ## Goal
 
