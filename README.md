@@ -3,7 +3,7 @@
 [![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/jillesca/open_telemetry_network_impact)
 
 > [!IMPORTANT]
-> See [AI-Network-Troubleshooting-PoC](https://github.com/jillesca/AI-Network-Troubleshooting-PoC) which is a newer and better version of this demo. No further updates will be done to this repository.
+> See [oncall-netops-tig-pyats-demo](https://github.com/jillesca/oncall-netops-tig-pyats-demo) which is a newer and better version of this demo. No further updates will be done to this repository.
 
 This demo uses the CML sandbox, but technically any IOS-XE device with two ISIS interfaces will work.
 
